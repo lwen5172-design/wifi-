@@ -3,6 +3,8 @@
 #include "wifiinfo.h"
 
 #include <QDateTime>
+#include <QFileDialog>
+#include <QFileInfo>
 #include <QGroupBox>
 #include <QGuiApplication>
 #include <QHBoxLayout>
@@ -76,6 +78,7 @@ QString randomToken(int length)
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , m_adb(new AdbManager(this))
+    , m_hdc(new HdcManager(this))
 {
     setWindowTitle(QStringLiteral("WiFi 无线调试助手"));
     resize(1180, 700);
@@ -100,6 +103,19 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_adb, &AdbManager::devicesListed, this, &MainWindow::onDevicesListed);
     connect(m_adb, &AdbManager::mdnsListed, this, &MainWindow::onMdnsListed);
 
+    connect(m_hdc, &HdcManager::logMessage, this, &MainWindow::appendLog);
+    connect(m_hdc, &HdcManager::targetsListed, this, &MainWindow::onHdcTargetsListed);
+    connect(m_hdc, &HdcManager::discoveredListed, this, &MainWindow::onHdcDiscovered);
+    connect(m_hdc, &HdcManager::connectFinished, this, &MainWindow::onHdcConnectFinished);
+    connect(m_hdc, &HdcManager::serverRestarted, this, &MainWindow::onHdcServerRestarted);    connect(m_hdc, &HdcManager::versionChecked, this,
+            [this](bool ok, const QString &detail) {
+        updateHdcPathLabel();
+        if (ok)
+            appendLog(QStringLiteral("hdc: %1").arg(detail));
+        else
+            appendLog(QStringLiteral("hdc 不可用：%1").arg(detail));
+    });
+
     // 设备列表每 4 秒静默刷新
     m_pollTimer = new QTimer(this);
     m_pollTimer->setInterval(4000);
@@ -118,6 +134,13 @@ MainWindow::MainWindow(QWidget *parent)
         appendLog(QStringLiteral("警告：未找到 adb，请安装 platform-tools 并加入 PATH"));
     else
         appendLog(QStringLiteral("adb: %1").arg(m_adb->adbPath()));
+
+    updateHdcPathLabel();
+    if (!m_hdc->isAvailable())
+        appendLog(QStringLiteral("未找到 hdc。鸿蒙设备支持需要 DevEco Studio 的 hdc.exe，"
+                                 "点「选择 hdc.exe」指定路径。"));
+    else
+        m_hdc->checkVersion();
 
     refreshDeviceList();
 }
@@ -221,12 +244,14 @@ QWidget *MainWindow::buildRightPanel()
     auto *deviceGroup = new QGroupBox(QStringLiteral("设备列表"));
     auto *deviceLayout = new QVBoxLayout(deviceGroup);
 
-    m_deviceTable = new QTableWidget(0, 3);
+    m_deviceTable = new QTableWidget(0, 4);
     m_deviceTable->setHorizontalHeaderLabels(
-        {QStringLiteral("地址"), QStringLiteral("状态"), QStringLiteral("型号")});
+        {QStringLiteral("地址"), QStringLiteral("状态"), QStringLiteral("型号/类型"),
+         QStringLiteral("来源")});
     m_deviceTable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
     m_deviceTable->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
     m_deviceTable->horizontalHeader()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
+    m_deviceTable->horizontalHeader()->setSectionResizeMode(3, QHeaderView::ResizeToContents);
     m_deviceTable->verticalHeader()->setVisible(false);
     m_deviceTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     m_deviceTable->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -291,8 +316,92 @@ QWidget *MainWindow::buildRightPanel()
 
     layout->addWidget(deviceGroup);
     layout->addWidget(codeGroup);
+    layout->addWidget(buildHdcGroup());
     layout->addWidget(m_logView, 1);
     return panel;
+}
+
+QWidget *MainWindow::buildHdcGroup()
+{
+    auto *group = new QGroupBox(QStringLiteral("鸿蒙无线调试（hdc）"));
+    auto *layout = new QVBoxLayout(group);
+
+    auto *hint = new QLabel(
+        QStringLiteral("鸿蒙没有安卓那种二维码/配对码。手机上：设置 → 系统 → 开发者选项 → "
+                       "无线调试，打开后记下显示的 IP:端口，填到下面点「连接」。"
+                       "设备列表里「可连接（鸿蒙）」的条目也可以直接双击连接。"));
+    hint->setWordWrap(true);
+    hint->setStyleSheet(QStringLiteral("color: #666;"));
+
+    auto *form = new QHBoxLayout;
+    m_hdcEndpoint = new QLineEdit;
+    m_hdcEndpoint->setPlaceholderText(QStringLiteral("192.168.3.24:8710"));
+    m_hdcConnectButton = new QPushButton(QStringLiteral("连接"));
+    connect(m_hdcConnectButton, &QPushButton::clicked, this, &MainWindow::connectHdcManually);
+    connect(m_hdcEndpoint, &QLineEdit::returnPressed, this, &MainWindow::connectHdcManually);
+    form->addWidget(new QLabel(QStringLiteral("地址")));
+    form->addWidget(m_hdcEndpoint, 1);
+    form->addWidget(m_hdcConnectButton);
+
+    auto *pathRow = new QHBoxLayout;
+    m_hdcPathLabel = new QLabel;
+    m_hdcPathLabel->setStyleSheet(QStringLiteral("color: #666;"));
+    m_hdcPathLabel->setTextInteractionFlags(Qt::TextSelectableByMouse);
+    auto *browse = new QPushButton(QStringLiteral("选择 hdc.exe"));
+    connect(browse, &QPushButton::clicked, this, &MainWindow::chooseHdcPath);
+    pathRow->addWidget(m_hdcPathLabel, 1);
+    pathRow->addWidget(browse);
+
+    layout->addWidget(hint);
+    layout->addLayout(form);
+    layout->addLayout(pathRow);
+    return group;
+}
+
+void MainWindow::updateHdcPathLabel()
+{
+    if (!m_hdcPathLabel)
+        return;
+    if (m_hdc->isAvailable())
+        m_hdcPathLabel->setText(QStringLiteral("hdc: %1").arg(m_hdc->hdcPath()));
+    else
+        m_hdcPathLabel->setText(QStringLiteral("未找到 hdc.exe，请点右侧按钮指定"));
+}
+
+void MainWindow::chooseHdcPath()
+{
+    const QString start = m_hdc->isAvailable()
+        ? QFileInfo(m_hdc->hdcPath()).absolutePath()
+        : QStringLiteral("C:/Users/%1/Downloads").arg(qEnvironmentVariable("USERNAME"));
+    const QString path = QFileDialog::getOpenFileName(
+        this, QStringLiteral("选择 hdc.exe"), start,
+        QStringLiteral("hdc (hdc.exe);;可执行文件 (*.exe);;所有文件 (*)"));
+    if (path.isEmpty())
+        return;
+
+    m_hdc->setHdcPath(path);
+    updateHdcPathLabel();
+    appendLog(QStringLiteral("使用 hdc: %1").arg(path));
+    m_hdc->checkVersion();
+    m_hdc->listTargets(true);
+    m_hdc->discover();
+}
+
+void MainWindow::connectHdcManually()
+{
+    const QString endpoint = m_hdcEndpoint->text().trimmed();
+    if (endpoint.isEmpty()) {
+        QMessageBox::information(this, QStringLiteral("提示"),
+                                 QStringLiteral("请填写手机无线调试页显示的 IP:端口"));
+        return;
+    }
+    if (!endpoint.contains(QLatin1Char(':'))) {
+        QMessageBox::warning(this, QStringLiteral("地址格式"),
+                             QStringLiteral("地址要写成 IP:端口，例如 192.168.3.24:8710"));
+        return;
+    }
+    m_hdcConnectButton->setEnabled(false);
+    m_hdc->connectTo(endpoint);
 }
 
 // ---------------------------------------------------------------- 二维码
@@ -531,12 +640,55 @@ void MainWindow::onConnectFinished(bool ok, const QString &message)
         refreshDeviceList();
 }
 
+// ---------------------------------------------------------------- 鸿蒙 hdc
+
+void MainWindow::onHdcTargetsListed(const QList<HdcDevice> &devices)
+{
+    m_hdcDevices = devices;
+    updateDeviceTable();
+}
+
+void MainWindow::onHdcDiscovered(const QList<HdcDiscovered> &devices)
+{
+    m_hdcDiscovered = devices;
+    updateDeviceTable();
+}
+
+void MainWindow::onHdcConnectFinished(bool ok, const QString &message)
+{
+    if (m_hdcConnectButton)
+        m_hdcConnectButton->setEnabled(true);
+    appendLog(message);
+    if (ok) {
+        if (m_hdcEndpoint)
+            m_hdcEndpoint->clear();
+        m_hdc->listTargets(true);
+    }
+}
+
+void MainWindow::onHdcServerRestarted(const QString &detail)
+{
+    appendLog(detail);
+    m_hdcDevices.clear();
+    m_hdcDiscovered.clear();
+    updateDeviceTable();
+    m_hdc->discover();
+}
+
 // ---------------------------------------------------------------- 设备列表
 
 void MainWindow::refreshDeviceList()
 {
-    m_adb->listDevices(true);
-    m_adb->mdnsServices(true);
+    if (m_adb->isAvailable()) {
+        m_adb->listDevices(true);
+        m_adb->mdnsServices(true);
+    }
+    if (m_hdc->isAvailable()) {
+        m_hdc->listTargets(true);
+        // discover 走 UDP 广播，单次要 2 秒左右，每 4 次刷新（约 16 秒）跑一次
+        if (m_scanTick++ % 4 == 0)
+            m_hdc->discover();
+    }
 }
 
 void MainWindow::onDevicesListed(const QList<AdbDevice> &devices)
@@ -566,30 +718,56 @@ void MainWindow::updateDeviceTable()
         QString address;
         QString state;
         QString model;
+        QString source; // adb / hdc
         bool connected;
     };
     QList<Row> rows;
     QSet<QString> seen;
+    const auto keyOf = [](const QString &source, const QString &address) {
+        return source + QLatin1Char('|') + address;
+    };
 
+    // ---- adb：已连接的设备 ----
     for (const AdbDevice &device : m_lastDevices) {
         // adb 会为同一台无线设备同时给出 TCP 条目和 mDNS 传输别名，
         // 别名形如 adb-xxxx._adb-tls-connect._tcp，重复且不可点，直接跳过
         if (device.serial.contains(QStringLiteral("_adb-tls-")))
             continue;
-        rows << Row{device.serial, device.state, device.model,
+        rows << Row{device.serial, device.state, device.model, QStringLiteral("adb"),
                     device.state == QLatin1String("device")};
-        seen.insert(device.serial);
+        seen.insert(keyOf(QStringLiteral("adb"), device.serial));
     }
 
-    // 局域网里发现、但还没连接（也没配对）的设备
+    // ---- adb：局域网里发现、还没连接的设备 ----
     for (const MdnsService &service : m_lastServices) {
         if (!service.type.startsWith(QLatin1String(kConnectService)))
             continue;
         const QString endpoint = service.endpoint();
-        if (seen.contains(endpoint))
+        if (seen.contains(keyOf(QStringLiteral("adb"), endpoint)))
             continue;
-        seen.insert(endpoint);
-        rows << Row{endpoint, QStringLiteral("可连接"), QString(), false};
+        seen.insert(keyOf(QStringLiteral("adb"), endpoint));
+        rows << Row{endpoint, QStringLiteral("可连接"), QString(),
+                    QStringLiteral("adb"), false};
+    }
+
+    // ---- hdc：已连接的鸿蒙设备 ----
+    for (const HdcDevice &device : m_hdcDevices) {
+        const bool online =
+            device.state.compare(QStringLiteral("Connected"), Qt::CaseInsensitive) == 0
+            || device.state.compare(QStringLiteral("Ready"), Qt::CaseInsensitive) == 0;
+        rows << Row{device.connectKey, device.state, device.type,
+                    QStringLiteral("hdc"), online};
+        seen.insert(keyOf(QStringLiteral("hdc"), device.connectKey));
+    }
+
+    // ---- hdc：局域网广播发现、还没连接的鸿蒙设备 ----
+    for (const HdcDiscovered &device : m_hdcDiscovered) {
+        const QString endpoint = device.endpoint();
+        if (seen.contains(keyOf(QStringLiteral("hdc"), endpoint)))
+            continue;
+        seen.insert(keyOf(QStringLiteral("hdc"), endpoint));
+        rows << Row{endpoint, QStringLiteral("可连接（鸿蒙）"), QString(),
+                    QStringLiteral("hdc"), false};
     }
 
     std::sort(rows.begin(), rows.end(), [](const Row &a, const Row &b) {
@@ -604,10 +782,11 @@ void MainWindow::updateDeviceTable()
         auto *addressItem = new QTableWidgetItem(item.address);
         auto *stateItem = new QTableWidgetItem(item.state);
         auto *modelItem = new QTableWidgetItem(item.model);
+        auto *sourceItem = new QTableWidgetItem(item.source);
 
         if (item.connected)
             stateItem->setForeground(QColor(QStringLiteral("#2e7d32")));
-        else if (item.state == QStringLiteral("可连接"))
+        else if (item.state.startsWith(QStringLiteral("可连接")))
             stateItem->setForeground(QColor(QStringLiteral("#1565c0")));
         else
             stateItem->setForeground(QColor(QStringLiteral("#c62828")));
@@ -615,6 +794,7 @@ void MainWindow::updateDeviceTable()
         m_deviceTable->setItem(row, 0, addressItem);
         m_deviceTable->setItem(row, 1, stateItem);
         m_deviceTable->setItem(row, 2, modelItem);
+        m_deviceTable->setItem(row, 3, sourceItem);
 
         if (!keep.isEmpty() && item.address == keep)
             m_deviceTable->selectRow(row);
@@ -631,13 +811,24 @@ QString MainWindow::selectedAddress() const
     return m_deviceTable->item(row, 0)->text();
 }
 
+QString MainWindow::selectedSource() const
+{
+    const int row = m_deviceTable ? m_deviceTable->currentRow() : -1;
+    if (row < 0 || !m_deviceTable->item(row, 3))
+        return QString();
+    return m_deviceTable->item(row, 3)->text();
+}
+
 void MainWindow::connectSelectedDevice()
 {
     const QString address = selectedAddress();
     if (address.isEmpty())
         return;
     m_connectButton->setEnabled(false);
-    m_adb->connectTo(address);
+    if (selectedSource() == QLatin1String("hdc"))
+        m_hdc->connectTo(address);
+    else
+        m_adb->connectTo(address);
 }
 
 void MainWindow::disconnectSelectedDevice()
@@ -646,6 +837,18 @@ void MainWindow::disconnectSelectedDevice()
     if (address.isEmpty()) {
         QMessageBox::information(this, QStringLiteral("提示"),
                                  QStringLiteral("先在设备列表里选中一台设备"));
+        return;
+    }
+    if (selectedSource() == QLatin1String("hdc")) {
+        // 部分 hdc 版本的 -remove 不生效，用 kill 重启 server 真正断开所有 TCP 连接
+        const auto answer = QMessageBox::question(
+            this, QStringLiteral("断开鸿蒙设备"),
+            QStringLiteral("将重启 hdc 服务进程（hdc kill -r）以断开 %1。\n"
+                           "这会断开所有 hdc 连接，USB 设备会在重连后自动恢复。")
+                .arg(address),
+            QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+        if (answer == QMessageBox::Yes)
+            m_hdc->restartServer();
         return;
     }
     m_adb->disconnectDevice(address);

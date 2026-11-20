@@ -15,12 +15,15 @@ SOURCES += \
     mainwindow.cpp \
     wifiinfo.cpp \
     adbmanager.cpp \
+    hdcmanager.cpp \
     qrcodegen/qrcodegen.cpp
 
 HEADERS += \
     mainwindow.h \
     wifiinfo.h \
     adbmanager.h \
+    hdcmanager.h \
+    textdecode.h \
     qrcodegen/qrcodegen.hpp
 
 # Default rules for deployment.

@@ -1,29 +1,18 @@
 #include "adbmanager.h"
 
+#include "textdecode.h"
+
 #include <QFileInfo>
 #include <QProcess>
 #include <QProcessEnvironment>
 #include <QRegularExpression>
 #include <QStandardPaths>
-#include <QStringConverter>
 
 #include <memory>
 
 namespace {
 using OutputPtr = std::shared_ptr<QString>;
 using OncePtr = std::shared_ptr<bool>;
-
-// adb 在 Windows 上输出 UTF-8（包括中文系统下本地化的 Winsock 错误消息，
-// 如“由于目标计算机积极拒绝，无法连接。”）。若拿到非 UTF-8 数据
-// （旧版构建或异常输出），再退回系统本地编码。
-QString decodeAdbOutput(const QByteArray &data)
-{
-    QStringDecoder decoder(QStringDecoder::Utf8);
-    const QString text = decoder.decode(data);
-    if (!decoder.hasError())
-        return text;
-    return QString::fromLocal8Bit(data);
-}
 
 QString adbExecutable()
 {
@@ -87,7 +76,7 @@ void AdbManager::run(const QStringList &args, std::function<void(int, const QStr
         // 只解码完整行，避免一个 UTF-8 多字节字符被读取边界切成两半
         int newline = 0;
         while ((newline = int(pending->indexOf('\n'))) >= 0) {
-            const QString text = decodeAdbOutput(pending->left(newline + 1));
+            const QString text = decodeProcessOutput(pending->left(newline + 1));
             pending->remove(0, newline + 1);
             collected->append(text);
             const QString trimmed = text.trimmed();
@@ -105,7 +94,7 @@ void AdbManager::run(const QStringList &args, std::function<void(int, const QStr
 
         pending->append(process->readAllStandardOutput());
         if (!pending->isEmpty()) {
-            const QString text = decodeAdbOutput(*pending);
+            const QString text = decodeProcessOutput(*pending);
             pending->clear();
             collected->append(text);
             if (!quiet && !text.trimmed().isEmpty())

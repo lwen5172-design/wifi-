@@ -6,6 +6,7 @@
 #include <QStringList>
 
 #include "adbmanager.h"
+#include "hdcmanager.h"
 
 class QLabel;
 class QLineEdit;
@@ -38,15 +39,26 @@ private slots:
     void onPairWatchTick();
     void appendLog(const QString &text);
 
+    // 鸿蒙 / hdc
+    void onHdcTargetsListed(const QList<HdcDevice> &devices);
+    void onHdcDiscovered(const QList<HdcDiscovered> &devices);
+    void onHdcConnectFinished(bool ok, const QString &message);
+    void onHdcServerRestarted(const QString &detail);
+    void chooseHdcPath();
+
 private:
     QWidget *buildLeftPanel();
     QWidget *buildQrPairTab();
     QWidget *buildWifiTab();
     QWidget *buildRightPanel();
+    QWidget *buildHdcGroup();
 
     void renderQr(QLabel *label, const QString &text);
     void updateDeviceTable();
     QString selectedAddress() const;
+    QString selectedSource() const;
+    void connectHdcManually();
+    void updateHdcPathLabel();
 
     void startQrPairing();
     void stopQrPairing(const QString &reason);
@@ -71,15 +83,23 @@ private:
     QLineEdit *m_pairCode = nullptr;
     QPushButton *m_pairButton = nullptr;
 
+    // 右侧：鸿蒙（hdc）
+    QLabel *m_hdcPathLabel = nullptr;
+    QLineEdit *m_hdcEndpoint = nullptr;
+    QPushButton *m_hdcConnectButton = nullptr;
+
     // 右侧：日志
     QPlainTextEdit *m_logView = nullptr;
 
     AdbManager *m_adb = nullptr;
+    HdcManager *m_hdc = nullptr;
     QTimer *m_pollTimer = nullptr;
     QTimer *m_pairWatchTimer = nullptr;
 
     QList<AdbDevice> m_lastDevices;
     QList<MdnsService> m_lastServices;
+    QList<HdcDevice> m_hdcDevices;
+    QList<HdcDiscovered> m_hdcDiscovered;
 
     // 二维码配对状态机
     enum class PairPhase { Idle, WaitingScan, Pairing, WaitingConnect };
@@ -89,6 +109,7 @@ private:
     QString m_pairIp;
     qint64 m_pairDeadlineMs = 0;
     QSet<QString> m_triedConnects;
+    int m_scanTick = 0; // 用来降低 hdc discover（耗时约 2 秒）的调用频率
 
     QString m_ssid;
     QString m_password;
