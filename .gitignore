@@ -1,0 +1,24 @@
+# 构建产物
+build/
+debug/
+release/
+
+# Qt Creator 本地配置（含本机路径）
+*.pro.user
+*.pro.user.*
+.qtcreator/
+
+# 编译中间文件
+*.o
+*.obj
+*.exe
+*.dll
+*.a
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+
+# 其他
+*.log
+.DS_Store
+Thumbs.db
