@@ -1,8 +1,10 @@
 #ifndef ADBMANAGER_H
 #define ADBMANAGER_H
 
+#include <QHash>
 #include <QMetaType>
 #include <QObject>
+#include <QSet>
 #include <QString>
 #include <QStringList>
 
@@ -51,6 +53,9 @@ public:
     void mdnsServices(bool quiet = false);
     // adb devices -l
     void listDevices(bool quiet = false);
+    // 查询设备名称（厂商 + 型号），查到后通过 deviceNameResolved 通知
+    void requestDeviceName(const QString &serial);
+    QString cachedDeviceName(const QString &serial) const;
     // adb mdns check，确认 adb 的 mDNS 后端可用
     void checkMdns();
 
@@ -62,6 +67,7 @@ signals:
     void mdnsListed(const QList<MdnsService> &services);
     void devicesListed(const QList<AdbDevice> &devices);
     void mdnsChecked(bool available, const QString &detail);
+    void deviceNameResolved(const QString &serial, const QString &name);
 
 private:
     void run(const QStringList &args,
@@ -69,6 +75,8 @@ private:
              bool quiet = false);
 
     QString m_adbPath;
+    QHash<QString, QString> m_deviceNames;
+    QSet<QString> m_nameRequests;
 };
 
 #endif // ADBMANAGER_H

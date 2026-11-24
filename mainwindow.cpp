@@ -3,6 +3,7 @@
 #include "wifiinfo.h"
 
 #include <QDateTime>
+#include <QClipboard>
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QGroupBox>
@@ -10,6 +11,7 @@
 #include <QHBoxLayout>
 #include <QHeaderView>
 #include <QImage>
+#include <QInputDialog>
 #include <QLabel>
 #include <QLineEdit>
 #include <QMenu>
@@ -102,12 +104,27 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_adb, &AdbManager::connectFinished, this, &MainWindow::onConnectFinished);
     connect(m_adb, &AdbManager::devicesListed, this, &MainWindow::onDevicesListed);
     connect(m_adb, &AdbManager::mdnsListed, this, &MainWindow::onMdnsListed);
+    connect(m_adb, &AdbManager::deviceNameResolved, this,
+            [this](const QString &serial, const QString &name) {
+        m_adbDeviceNames.insert(serial, name);
+        updateDeviceTable();
+    });
 
     connect(m_hdc, &HdcManager::logMessage, this, &MainWindow::appendLog);
     connect(m_hdc, &HdcManager::targetsListed, this, &MainWindow::onHdcTargetsListed);
     connect(m_hdc, &HdcManager::discoveredListed, this, &MainWindow::onHdcDiscovered);
+    connect(m_hdc, &HdcManager::knownEndpointsListed,
+            this, &MainWindow::onHdcKnownEndpoints);
     connect(m_hdc, &HdcManager::connectFinished, this, &MainWindow::onHdcConnectFinished);
-    connect(m_hdc, &HdcManager::serverRestarted, this, &MainWindow::onHdcServerRestarted);    connect(m_hdc, &HdcManager::versionChecked, this,
+    connect(m_hdc, &HdcManager::serverRestarted, this, &MainWindow::onHdcServerRestarted);
+    connect(m_hdc, &HdcManager::lanProbeFinished,
+            this, &MainWindow::onHdcLanProbeFinished);
+    connect(m_hdc, &HdcManager::deviceNameResolved, this,
+            [this](const QString &key, const QString &name) {
+        m_hdcDeviceNames.insert(key, name);
+        updateDeviceTable();
+    });
+    connect(m_hdc, &HdcManager::versionChecked, this,
             [this](bool ok, const QString &detail) {
         updateHdcPathLabel();
         if (ok)
@@ -143,6 +160,8 @@ MainWindow::MainWindow(QWidget *parent)
         m_hdc->checkVersion();
 
     refreshDeviceList();
+    if (m_hdc->isAvailable())
+        QTimer::singleShot(600, this, [this]() { m_hdc->checkKnownEndpoints(); });
 }
 
 MainWindow::~MainWindow() = default;
@@ -244,23 +263,27 @@ QWidget *MainWindow::buildRightPanel()
     auto *deviceGroup = new QGroupBox(QStringLiteral("设备列表"));
     auto *deviceLayout = new QVBoxLayout(deviceGroup);
 
-    m_deviceTable = new QTableWidget(0, 4);
+    m_deviceTable = new QTableWidget(0, 5);
     m_deviceTable->setHorizontalHeaderLabels(
-        {QStringLiteral("地址"), QStringLiteral("状态"), QStringLiteral("型号/类型"),
-         QStringLiteral("来源")});
+        {QStringLiteral("地址"), QStringLiteral("状态"), QStringLiteral("设备名称"),
+         QStringLiteral("连接方式"), QStringLiteral("来源")});
     m_deviceTable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
     m_deviceTable->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
-    m_deviceTable->horizontalHeader()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
+    m_deviceTable->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
     m_deviceTable->horizontalHeader()->setSectionResizeMode(3, QHeaderView::ResizeToContents);
+    m_deviceTable->horizontalHeader()->setSectionResizeMode(4, QHeaderView::ResizeToContents);
     m_deviceTable->verticalHeader()->setVisible(false);
     m_deviceTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     m_deviceTable->setSelectionMode(QAbstractItemView::SingleSelection);
     m_deviceTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_deviceTable->setMinimumHeight(140);
+    m_deviceTable->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(m_deviceTable, &QTableWidget::itemSelectionChanged,
             this, [this]() { m_connectButton->setEnabled(!selectedAddress().isEmpty()); });
     connect(m_deviceTable, &QTableWidget::cellDoubleClicked,
             this, [this](int, int) { connectSelectedDevice(); });
+    connect(m_deviceTable, &QWidget::customContextMenuRequested,
+            this, &MainWindow::showDeviceContextMenu);
 
     auto *deviceButtons = new QHBoxLayout;
     auto *refreshButton = new QPushButton(QStringLiteral("刷新"));
@@ -328,14 +351,16 @@ QWidget *MainWindow::buildHdcGroup()
 
     auto *hint = new QLabel(
         QStringLiteral("鸿蒙没有安卓那种二维码/配对码。手机上：设置 → 系统 → 开发者选项 → "
-                       "无线调试，打开后记下显示的 IP:端口，填到下面点「连接」。"
-                       "设备列表里「可连接（鸿蒙）」的条目也可以直接双击连接。"));
+                       "无线调试，把显示的 IP:端口 填到下面点「连接」。"
+                       "连过一次的地址会被记住，下次启动自动重连。"
+                       "每次重开无线调试端口会变，此时在设备列表里右键那一行，"
+                       "可以改端口号后直接重连。"));
     hint->setWordWrap(true);
     hint->setStyleSheet(QStringLiteral("color: #666;"));
 
     auto *form = new QHBoxLayout;
     m_hdcEndpoint = new QLineEdit;
-    m_hdcEndpoint->setPlaceholderText(QStringLiteral("192.168.3.24:8710"));
+    m_hdcEndpoint->setPlaceholderText(QStringLiteral("192.168.3.24:37991"));
     m_hdcConnectButton = new QPushButton(QStringLiteral("连接"));
     connect(m_hdcConnectButton, &QPushButton::clicked, this, &MainWindow::connectHdcManually);
     connect(m_hdcEndpoint, &QLineEdit::returnPressed, this, &MainWindow::connectHdcManually);
@@ -384,7 +409,35 @@ void MainWindow::chooseHdcPath()
     appendLog(QStringLiteral("使用 hdc: %1").arg(path));
     m_hdc->checkVersion();
     m_hdc->listTargets(true);
-    m_hdc->discover();
+    m_hdc->probeLan();
+    m_hdc->checkKnownEndpoints();
+}
+
+void MainWindow::autoReconnectKnownHdc()
+{
+    const QStringList known = m_hdc->knownEndpoints();
+    if (known.isEmpty())
+        return;
+
+    QSet<QString> online;
+    for (const HdcDevice &device : m_hdcDevices) {
+        const bool isTcp = device.type.compare(QStringLiteral("TCP"), Qt::CaseInsensitive) == 0
+                           || device.connectKey.contains(QLatin1Char(':'));
+        const bool connected =
+            device.state.compare(QStringLiteral("Connected"), Qt::CaseInsensitive) == 0
+            || device.state.compare(QStringLiteral("Ready"), Qt::CaseInsensitive) == 0;
+        // hdc 里 Offline 只表示“记得这个地址”，不算在线，仍然尝试重连
+        if (isTcp && connected)
+            online.insert(device.connectKey);
+    }
+
+    for (const QString &key : known) {
+        if (online.contains(key) || m_autoReconnectTried.contains(key))
+            continue;
+        m_autoReconnectTried.insert(key);
+        // 静默重连：失败不刷日志 —— 这个地址可能只是暂时不在线
+        m_hdc->connectTo(key, /*quiet=*/true);
+    }
 }
 
 void MainWindow::connectHdcManually()
@@ -397,7 +450,8 @@ void MainWindow::connectHdcManually()
     }
     if (!endpoint.contains(QLatin1Char(':'))) {
         QMessageBox::warning(this, QStringLiteral("地址格式"),
-                             QStringLiteral("地址要写成 IP:端口，例如 192.168.3.24:8710"));
+                             QStringLiteral("地址要写成 IP:端口，例如 192.168.3.24:37991\n"
+                                            "端口请用手机无线调试页上显示的那个。"));
         return;
     }
     m_hdcConnectButton->setEnabled(false);
@@ -654,15 +708,67 @@ void MainWindow::onHdcDiscovered(const QList<HdcDiscovered> &devices)
     updateDeviceTable();
 }
 
-void MainWindow::onHdcConnectFinished(bool ok, const QString &message)
+void MainWindow::onHdcKnownEndpoints(const QList<HdcDiscovered> &devices)
+{
+    const bool appeared = devices.size() > m_hdcKnownOnline.size();
+    m_hdcKnownOnline = devices;
+
+    // 掉线的地址允许下次重新尝试自动重连
+    QSet<QString> online;
+    for (const HdcDiscovered &device : devices)
+        online.insert(device.endpoint());
+    for (auto it = m_autoReconnectTried.begin(); it != m_autoReconnectTried.end();) {
+        if (online.contains(*it))
+            ++it;
+        else
+            it = m_autoReconnectTried.erase(it);
+    }
+
+    updateDeviceTable();
+    // 记住的地址重新上线了就自动连，不然用户得自己再点一次
+    if (appeared)
+        autoReconnectKnownHdc();
+}
+
+void MainWindow::onHdcLanProbeFinished(int probed, int found)
+{
+    if (found != m_lastLanProbeFound) {
+        m_lastLanProbeFound = found;
+        if (found > 0) {
+            appendLog(QStringLiteral("局域网发现：探测 %1 个地址，发现 %2 台鸿蒙设备")
+                          .arg(probed)
+                          .arg(found));
+        }
+    }
+}
+
+void MainWindow::onHdcConnectFinished(bool ok, const QString &message, const QString &key,
+                                      bool quiet)
 {
     if (m_hdcConnectButton)
         m_hdcConnectButton->setEnabled(true);
-    appendLog(message);
+    if (!quiet || ok)
+        appendLog(message);
     if (ok) {
         if (m_hdcEndpoint)
             m_hdcEndpoint->clear();
+        m_autoReconnectTried.insert(key);
+        m_knownReconnectFailures = 0;
+        m_portHintShown = false;
         m_hdc->listTargets(true);
+        return;
+    }
+
+    // 静默重连失败：全部记住的地址都连不上时提示一次，多半是无线调试重开过、端口变了
+    if (quiet) {
+        ++m_knownReconnectFailures;
+        const int known = m_hdc->knownEndpoints().size();
+        if (!m_portHintShown && known > 0 && m_knownReconnectFailures >= known) {
+            m_portHintShown = true;
+            appendLog(QStringLiteral("上次连接的鸿蒙设备现在连不上了。鸿蒙每次重新打开"
+                                     "「无线调试」端口都会变，请在手机无线调试页确认新的 "
+                                     "IP:端口，填到「鸿蒙无线调试」面板里点「连接」。"));
+        }
     }
 }
 
@@ -672,7 +778,7 @@ void MainWindow::onHdcServerRestarted(const QString &detail)
     m_hdcDevices.clear();
     m_hdcDiscovered.clear();
     updateDeviceTable();
-    m_hdc->discover();
+    m_hdc->probeLan();
 }
 
 // ---------------------------------------------------------------- 设备列表
@@ -685,9 +791,22 @@ void MainWindow::refreshDeviceList()
     }
     if (m_hdc->isAvailable()) {
         m_hdc->listTargets(true);
-        // discover 走 UDP 广播，单次要 2 秒左右，每 4 次刷新（约 16 秒）跑一次
-        if (m_scanTick++ % 4 == 0)
-            m_hdc->discover();
+        // UDP 单播扫描一轮约 1.5 秒：已经有设备连着时降频，空闲时勤一点
+        const bool hasConnected = std::any_of(
+            m_hdcDevices.cbegin(), m_hdcDevices.cend(), [](const HdcDevice &device) {
+                const bool isTcp =
+                    device.type.compare(QStringLiteral("TCP"), Qt::CaseInsensitive) == 0;
+                return isTcp
+                       && (device.state.compare(QStringLiteral("Connected"),
+                                                Qt::CaseInsensitive) == 0
+                           || device.state.compare(QStringLiteral("Ready"),
+                                                   Qt::CaseInsensitive) == 0);
+            });
+        const int scanEveryTicks = hasConnected ? 30 : 4; // 2 分钟 / 16 秒
+        if (m_scanTick++ % scanEveryTicks == 0) {
+            m_hdc->probeLan();
+            m_hdc->checkKnownEndpoints();
+        }
     }
 }
 
@@ -717,8 +836,9 @@ void MainWindow::updateDeviceTable()
     {
         QString address;
         QString state;
-        QString model;
-        QString source; // adb / hdc
+        QString name;       // 设备名称 / 型号
+        QString connection; // TCP / USB / UART
+        QString source;     // adb / hdc
         bool connected;
     };
     QList<Row> rows;
@@ -733,8 +853,19 @@ void MainWindow::updateDeviceTable()
         // 别名形如 adb-xxxx._adb-tls-connect._tcp，重复且不可点，直接跳过
         if (device.serial.contains(QStringLiteral("_adb-tls-")))
             continue;
-        rows << Row{device.serial, device.state, device.model, QStringLiteral("adb"),
-                    device.state == QLatin1String("device")};
+        // 带冒号是 TCP 无线连接，否则是 USB
+        const QString conn = device.serial.contains(QLatin1Char(':'))
+                                 ? QStringLiteral("TCP")
+                                 : QStringLiteral("USB");
+        // 优先用查到的“厂商 型号”（如 OPPO PKB110），还没查到时先显示 adb 给的型号
+        QString name = m_adbDeviceNames.value(device.serial);
+        if (name.isEmpty()) {
+            if (device.state == QLatin1String("device"))
+                m_adb->requestDeviceName(device.serial);
+            name = device.model;
+        }
+        rows << Row{device.serial, device.state, name, conn,
+                    QStringLiteral("adb"), device.state == QLatin1String("device")};
         seen.insert(keyOf(QStringLiteral("adb"), device.serial));
     }
 
@@ -747,17 +878,54 @@ void MainWindow::updateDeviceTable()
             continue;
         seen.insert(keyOf(QStringLiteral("adb"), endpoint));
         rows << Row{endpoint, QStringLiteral("可连接"), QString(),
-                    QStringLiteral("adb"), false};
+                    QStringLiteral("TCP"), QStringLiteral("adb"), false};
     }
 
     // ---- hdc：已连接的鸿蒙设备 ----
+    // hdc 服务端会把连过的地址都留在内存里，端口变了之后旧的那条会标成 Offline。
+    // 同一个 IP 只保留在线的那条，旧端口的死条目不再显示（否则同一台手机出现两行）。
+    QSet<QString> hdcOnlineIps;
     for (const HdcDevice &device : m_hdcDevices) {
         const bool online =
             device.state.compare(QStringLiteral("Connected"), Qt::CaseInsensitive) == 0
             || device.state.compare(QStringLiteral("Ready"), Qt::CaseInsensitive) == 0;
-        rows << Row{device.connectKey, device.state, device.type,
+        if (!online)
+            continue;
+        const int colon = device.connectKey.lastIndexOf(QLatin1Char(':'));
+        hdcOnlineIps.insert(colon > 0 ? device.connectKey.left(colon) : device.connectKey);
+    }
+
+    for (const HdcDevice &device : m_hdcDevices) {
+        const bool online =
+            device.state.compare(QStringLiteral("Connected"), Qt::CaseInsensitive) == 0
+            || device.state.compare(QStringLiteral("Ready"), Qt::CaseInsensitive) == 0;
+
+        const int colon = device.connectKey.lastIndexOf(QLatin1Char(':'));
+        const bool isTcp = colon > 0
+                           && !device.connectKey.startsWith(QStringLiteral("COM"),
+                                                            Qt::CaseInsensitive);
+        // 这个 IP 已经有在线端口了，旧端口的离线条目直接跳过
+        if (!online && isTcp && hdcOnlineIps.contains(device.connectKey.left(colon)))
+            continue;
+
+        // 有设备名就显示设备名（HUAWEI Mate 60 Pro），没有就退回类型（TCP / USB）
+        QString name = m_hdcDeviceNames.value(device.connectKey);
+        if (name.isEmpty() && isTcp) {
+            // 同一 IP 换过端口的旧条目也尽量显示已知名称
+            const QString prefix = device.connectKey.left(colon + 1);
+            for (auto it = m_hdcDeviceNames.cbegin(); it != m_hdcDeviceNames.cend(); ++it) {
+                if (it.key().startsWith(prefix)) {
+                    name = it.value();
+                    break;
+                }
+            }
+        }
+        rows << Row{device.connectKey, device.state, name, device.type,
                     QStringLiteral("hdc"), online};
         seen.insert(keyOf(QStringLiteral("hdc"), device.connectKey));
+        // 已连接的设备去问一次名称，查到后会刷新列表
+        if (online && name.isEmpty() && isTcp)
+            m_hdc->requestDeviceName(device.connectKey);
     }
 
     // ---- hdc：局域网广播发现、还没连接的鸿蒙设备 ----
@@ -767,8 +935,20 @@ void MainWindow::updateDeviceTable()
             continue;
         seen.insert(keyOf(QStringLiteral("hdc"), endpoint));
         rows << Row{endpoint, QStringLiteral("可连接（鸿蒙）"), QString(),
+                    QStringLiteral("TCP"), QStringLiteral("hdc"), false};
+    }
+
+    // ---- hdc：连过、但当前没在列表里的地址（TCP 还连得上） ----
+    for (const HdcDiscovered &device : m_hdcKnownOnline) {
+        const QString endpoint = device.endpoint();
+        if (seen.contains(keyOf(QStringLiteral("hdc"), endpoint)))
+            continue;
+        seen.insert(keyOf(QStringLiteral("hdc"), endpoint));
+        rows << Row{endpoint, QStringLiteral("可连接（上次连接过）"),
+                    m_hdcDeviceNames.value(endpoint), QStringLiteral("TCP"),
                     QStringLiteral("hdc"), false};
     }
+
 
     std::sort(rows.begin(), rows.end(), [](const Row &a, const Row &b) {
         if (a.connected != b.connected)
@@ -781,7 +961,8 @@ void MainWindow::updateDeviceTable()
         const Row &item = rows.at(row);
         auto *addressItem = new QTableWidgetItem(item.address);
         auto *stateItem = new QTableWidgetItem(item.state);
-        auto *modelItem = new QTableWidgetItem(item.model);
+        auto *nameItem = new QTableWidgetItem(item.name);
+        auto *connItem = new QTableWidgetItem(item.connection);
         auto *sourceItem = new QTableWidgetItem(item.source);
 
         if (item.connected)
@@ -791,10 +972,15 @@ void MainWindow::updateDeviceTable()
         else
             stateItem->setForeground(QColor(QStringLiteral("#c62828")));
 
+        // 连接方式用浅色，突出设备名
+        connItem->setForeground(QColor(QStringLiteral("#666")));
+        sourceItem->setForeground(QColor(QStringLiteral("#666")));
+
         m_deviceTable->setItem(row, 0, addressItem);
         m_deviceTable->setItem(row, 1, stateItem);
-        m_deviceTable->setItem(row, 2, modelItem);
-        m_deviceTable->setItem(row, 3, sourceItem);
+        m_deviceTable->setItem(row, 2, nameItem);
+        m_deviceTable->setItem(row, 3, connItem);
+        m_deviceTable->setItem(row, 4, sourceItem);
 
         if (!keep.isEmpty() && item.address == keep)
             m_deviceTable->selectRow(row);
@@ -814,9 +1000,9 @@ QString MainWindow::selectedAddress() const
 QString MainWindow::selectedSource() const
 {
     const int row = m_deviceTable ? m_deviceTable->currentRow() : -1;
-    if (row < 0 || !m_deviceTable->item(row, 3))
+    if (row < 0 || !m_deviceTable->item(row, 4))
         return QString();
-    return m_deviceTable->item(row, 3)->text();
+    return m_deviceTable->item(row, 4)->text();
 }
 
 void MainWindow::connectSelectedDevice()
@@ -847,11 +1033,93 @@ void MainWindow::disconnectSelectedDevice()
                            "这会断开所有 hdc 连接，USB 设备会在重连后自动恢复。")
                 .arg(address),
             QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
-        if (answer == QMessageBox::Yes)
+        if (answer == QMessageBox::Yes) {
+            // 同时忘掉这个地址，否则重启后会自动重连回去
+            m_hdc->forgetEndpoint(address);
+            m_autoReconnectTried.remove(address);
             m_hdc->restartServer();
+        }
         return;
     }
     m_adb->disconnectDevice(address);
+}
+
+void MainWindow::showDeviceContextMenu(const QPoint &pos)
+{
+    QTableWidgetItem *item = m_deviceTable->itemAt(pos);
+    if (!item)
+        return;
+    // 右键顺便把该行选中，后续动作都基于选中行
+    m_deviceTable->selectRow(item->row());
+
+    const QString address = selectedAddress();
+    const QString source = selectedSource();
+    const bool isHdc = source == QLatin1String("hdc");
+
+    QMenu menu(this);
+    QAction *editPort = nullptr;
+    // 只有 hdc 的 IP:端口 条目才能改端口（USB 序列号、COM 串口不行）
+    if (isHdc && address.contains(QLatin1Char(':'))
+        && !address.startsWith(QStringLiteral("COM"), Qt::CaseInsensitive)) {
+        editPort = menu.addAction(QStringLiteral("修改端口…"));
+    }
+    QAction *reconnect = menu.addAction(QStringLiteral("重新连接"));
+    QAction *copyAddr = menu.addAction(QStringLiteral("复制地址"));
+
+    QAction *chosen = menu.exec(m_deviceTable->viewport()->mapToGlobal(pos));
+    if (!chosen)
+        return;
+
+    if (chosen == editPort) {
+        editSelectedDevicePort();
+    } else if (chosen == reconnect) {
+        connectSelectedDevice();
+    } else if (chosen == copyAddr) {
+        QGuiApplication::clipboard()->setText(address);
+        appendLog(QStringLiteral("已复制地址：%1").arg(address));
+    }
+}
+
+void MainWindow::editSelectedDevicePort()
+{
+    const QString address = selectedAddress();
+    const int colon = address.lastIndexOf(QLatin1Char(':'));
+    if (colon <= 0) {
+        QMessageBox::information(this, QStringLiteral("提示"),
+                                 QStringLiteral("这个条目不是 IP:端口 形式，无法修改端口。"));
+        return;
+    }
+    const QString ip = address.left(colon);
+    const QString oldPort = address.mid(colon + 1);
+
+    bool ok = false;
+    const QString portText = QInputDialog::getText(
+        this, QStringLiteral("修改端口"),
+        QStringLiteral("手机「无线调试」页上显示的端口：\n%1").arg(ip),
+        QLineEdit::Normal, oldPort, &ok);
+    if (!ok)
+        return;
+
+    const QString trimmed = portText.trimmed();
+    bool portOk = false;
+    const int port = trimmed.toInt(&portOk);
+    if (!portOk || port <= 0 || port > 65535) {
+        QMessageBox::warning(this, QStringLiteral("端口无效"),
+                             QStringLiteral("端口要是 1-65535 之间的数字。"));
+        return;
+    }
+
+    const QString endpoint = QStringLiteral("%1:%2").arg(ip).arg(port);
+    if (endpoint == address) {
+        connectSelectedDevice();
+        return;
+    }
+
+    appendLog(QStringLiteral("修改端口：%1 → %2").arg(address, endpoint));
+    // 旧端口作废，换上新地址后直接连
+    m_hdc->forgetEndpoint(address);
+    m_autoReconnectTried.remove(address);
+    m_hdc->connectTo(endpoint);
 }
 
 // ------------------------------------------------------------ 配对码配对

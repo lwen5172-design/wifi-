@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QHash>
 #include <QSet>
 #include <QStringList>
 
@@ -42,9 +43,14 @@ private slots:
     // 鸿蒙 / hdc
     void onHdcTargetsListed(const QList<HdcDevice> &devices);
     void onHdcDiscovered(const QList<HdcDiscovered> &devices);
-    void onHdcConnectFinished(bool ok, const QString &message);
+    void onHdcKnownEndpoints(const QList<HdcDiscovered> &devices);
+    void onHdcConnectFinished(bool ok, const QString &message, const QString &key, bool quiet);
     void onHdcServerRestarted(const QString &detail);
+    void onHdcLanProbeFinished(int probed, int found);
     void chooseHdcPath();
+    void autoReconnectKnownHdc();
+    // 设备列表右键菜单：修改端口 / 重连 / 断开
+    void showDeviceContextMenu(const QPoint &pos);
 
 private:
     QWidget *buildLeftPanel();
@@ -59,6 +65,8 @@ private:
     QString selectedSource() const;
     void connectHdcManually();
     void updateHdcPathLabel();
+    // 弹窗修改选中设备的端口，成功后按新地址重连
+    void editSelectedDevicePort();
 
     void startQrPairing();
     void stopQrPairing(const QString &reason);
@@ -99,7 +107,10 @@ private:
     QList<AdbDevice> m_lastDevices;
     QList<MdnsService> m_lastServices;
     QList<HdcDevice> m_hdcDevices;
-    QList<HdcDiscovered> m_hdcDiscovered;
+    QList<HdcDiscovered> m_hdcDiscovered;   // UDP 单播复扫到的
+    QList<HdcDiscovered> m_hdcKnownOnline;  // 记住的地址里 TCP 还连得上的
+    QHash<QString, QString> m_hdcDeviceNames; // connectKey -> 设备名
+    QHash<QString, QString> m_adbDeviceNames; // serial -> 设备名
 
     // 二维码配对状态机
     enum class PairPhase { Idle, WaitingScan, Pairing, WaitingConnect };
@@ -114,6 +125,14 @@ private:
     QString m_ssid;
     QString m_password;
     QString m_authType;
+
+    // 自动重连记住的地址时别刷日志
+    QSet<QString> m_autoReconnectTried;
+    // 上次探测结束时的结果数，用来决定是否写日志
+    int m_lastLanProbeFound = -1;
+    // 记住的地址全部重连失败时提示一次“端口可能变了”
+    int m_knownReconnectFailures = 0;
+    bool m_portHintShown = false;
 };
 
 #endif // MAINWINDOW_H

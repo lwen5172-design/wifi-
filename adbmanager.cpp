@@ -14,6 +14,10 @@ namespace {
 using OutputPtr = std::shared_ptr<QString>;
 using OncePtr = std::shared_ptr<bool>;
 
+
+// 1. 优先走系统 PATH，用 `findExecutable` 找 adb；
+// 2. PATH 找不到的话，去 Windows 上 Android SDK 几个最常见默认安装位置挨个尝试；
+// 3. 找到就返回 adb 绝对路径，全都找不到返回空串。
 QString adbExecutable()
 {
     QString path = QStandardPaths::findExecutable(QStringLiteral("adb"));
@@ -26,6 +30,7 @@ QString adbExecutable()
         QStringLiteral("C:/Android/platform-tools/adb.exe"),
         QStringLiteral("C:/Users/%1/AppData/Local/Android/Sdk/platform-tools/adb.exe").arg(user),
     };
+    //挨个找
     for (const QString &candidate : candidates) {
         if (QFileInfo::exists(candidate))
             return candidate;
@@ -59,24 +64,25 @@ void AdbManager::run(const QStringList &args, std::function<void(int, const QStr
     }
 
     auto *process = new QProcess(this);
-    process->setProcessChannelMode(QProcess::MergedChannels);
+    process->setProcessChannelMode(QProcess::MergedChannels); //stdout 和 stderr 合并在一起,不用分开处理两个管道
 
     // 老版本 platform-tools 需要这个变量才启用内置 mDNS；新版默认启用，设置无害
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
     env.insert(QStringLiteral("ADB_MDNS_OPENSCREEN"), QStringLiteral("1"));
     process->setProcessEnvironment(env);
 
-    const OutputPtr collected = std::make_shared<QString>();
-    const OncePtr finishedOnce = std::make_shared<bool>(false);
+    const OutputPtr collected = std::make_shared<QString>();//汇总全部的adb输出，给done回调
+    const OncePtr finishedOnce = std::make_shared<bool>(false);//`finished` 和 `errorOccurred` 信号都可能触发收尾，保证收尾逻辑只跑一次
     const auto pending = std::make_shared<QByteArray>(); // 未成行的原始字节
 
+    //流式读
     connect(process, &QProcess::readyReadStandardOutput, this,
             [this, process, collected, pending, quiet]() {
         pending->append(process->readAllStandardOutput());
         // 只解码完整行，避免一个 UTF-8 多字节字符被读取边界切成两半
         int newline = 0;
         while ((newline = int(pending->indexOf('\n'))) >= 0) {
-            const QString text = decodeProcessOutput(pending->left(newline + 1));
+            const QString text = decodeProcessOutput(pending->left(newline + 1)); //取出从开头到 `\n` 这一段（包含换行符）.解码函数，把这一整行的字节转成 QString
             pending->remove(0, newline + 1);
             collected->append(text);
             const QString trimmed = text.trimmed();
@@ -84,11 +90,11 @@ void AdbManager::run(const QStringList &args, std::function<void(int, const QStr
                 emit logMessage(trimmed);
         }
     });
-
+    //进程正常结束 / 崩溃
     connect(process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
             this, [this, process, collected, finishedOnce, pending, done, quiet](
                       int exitCode, QProcess::ExitStatus status) {
-        if (*finishedOnce)
+        if (*finishedOnce) //保证一次退出
             return;
         *finishedOnce = true;
 
@@ -101,8 +107,8 @@ void AdbManager::run(const QStringList &args, std::function<void(int, const QStr
                 emit logMessage(text.trimmed());
         }
 
-        process->deleteLater();
-
+        process->deleteLater();//延迟删除 QProcess 对象
+        //进程是崩溃退出（CrashExit）
         if (status == QProcess::CrashExit) {
             if (done)
                 done(-1, QStringLiteral("adb 进程异常退出"));
@@ -111,7 +117,7 @@ void AdbManager::run(const QStringList &args, std::function<void(int, const QStr
         if (done)
             done(exitCode, collected->trimmed());
     });
-
+    //进程启动失败
     connect(process, &QProcess::errorOccurred, this,
             [this, process, finishedOnce, done](QProcess::ProcessError error) {
         if (error != QProcess::FailedToStart || *finishedOnce)
@@ -128,13 +134,14 @@ void AdbManager::run(const QStringList &args, std::function<void(int, const QStr
     process->start(m_adbPath, args);
 }
 
+//调用无线配对
 void AdbManager::pair(const QString &hostPort, const QString &code)
 {
     // 配对码不进日志
     emit logMessage(QStringLiteral("> adb pair %1 ******").arg(hostPort));
     run({QStringLiteral("pair"), hostPort, code}, [this](int exitCode, const QString &output) {
         const bool ok = exitCode == 0
-                        && output.contains(QStringLiteral("Successfully paired"), Qt::CaseInsensitive);
+                        && output.contains(QStringLiteral("Successfully paired"), Qt::CaseInsensitive);//忽略大小写
         if (ok)
             emit pairFinished(true, QStringLiteral("配对成功"));
         else
@@ -243,6 +250,45 @@ void AdbManager::listDevices(bool quiet)
         }
         emit devicesListed(devices);
     }, quiet);
+}
+
+void AdbManager::requestDeviceName(const QString &serial)
+{
+    const QString key = serial.trimmed();
+    if (key.isEmpty())
+        return;
+    if (m_deviceNames.contains(key) || m_nameRequests.contains(key))
+        return;
+    m_nameRequests.insert(key);
+
+    // 一次调用把厂商和型号都拿回来，拼成 “OPPO PKB110” 这种
+    run({QStringLiteral("-s"), key, QStringLiteral("shell"),
+         QStringLiteral("getprop ro.product.manufacturer; getprop ro.product.model")},
+        [this, key](int, const QString &output) {
+        m_nameRequests.remove(key);
+        QStringList lines;
+        const QStringList raw = output.split(QLatin1Char('\n'));
+        for (const QString &line : raw) {
+            const QString trimmed = line.trimmed();
+            if (!trimmed.isEmpty())
+                lines << trimmed;
+        }
+        // output: 第 1 行厂商，第 2 行型号
+        QString name;
+        if (lines.size() >= 2)
+            name = QStringLiteral("%1 %2").arg(lines.at(0), lines.at(1));
+        else if (lines.size() == 1)
+            name = lines.first();
+        if (name.isEmpty())
+            return;
+        m_deviceNames.insert(key, name);
+        emit deviceNameResolved(key, name);
+    }, true);
+}
+
+QString AdbManager::cachedDeviceName(const QString &serial) const
+{
+    return m_deviceNames.value(serial.trimmed());
 }
 
 void AdbManager::checkMdns()
