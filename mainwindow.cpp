@@ -81,6 +81,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , m_adb(new AdbManager(this))
     , m_hdc(new HdcManager(this))
+    , m_ios(new IosManager(this))
 {
     setWindowTitle(QStringLiteral("WiFi 无线调试助手"));
     resize(1180, 700);
@@ -119,6 +120,12 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_hdc, &HdcManager::serverRestarted, this, &MainWindow::onHdcServerRestarted);
     connect(m_hdc, &HdcManager::lanProbeFinished,
             this, &MainWindow::onHdcLanProbeFinished);
+    connect(m_ios, &IosManager::devicesListed, this,
+            [this](const QList<IosDevice> &devices) {
+        m_iosDevices = devices;
+        updateDeviceTable();
+    });
+    connect(m_ios, &IosManager::logMessage, this, &MainWindow::appendLog);
     connect(m_hdc, &HdcManager::deviceNameResolved, this,
             [this](const QString &key, const QString &name) {
         m_hdcDeviceNames.insert(key, name);
@@ -808,6 +815,8 @@ void MainWindow::refreshDeviceList()
             m_hdc->checkKnownEndpoints();
         }
     }
+    // iOS 走本机 usbmuxd，查询很快
+    m_ios->listDevices();
 }
 
 void MainWindow::onDevicesListed(const QList<AdbDevice> &devices)
@@ -949,6 +958,26 @@ void MainWindow::updateDeviceTable()
                     QStringLiteral("hdc"), false};
     }
 
+    // ---- iOS：通过 usbmuxd 找到的设备 ----
+    for (const IosDevice &device : m_iosDevices) {
+        // 有设备名就显示名称，否则先用型号标识
+        QString name = device.name;
+        if (name.isEmpty())
+            name = device.productType;
+        if (name.isEmpty())
+            name = device.udid;
+
+        QString state;
+        if (!device.paired)
+            state = QStringLiteral("未信任"); // 手机没点“信任此电脑”，读不到名称
+        else if (!device.version.isEmpty())
+            state = QStringLiteral("已连接 · iOS %1").arg(device.version);
+        else
+            state = QStringLiteral("已连接");
+
+        rows << Row{device.udid, state, name, device.connection,
+                    QStringLiteral("ios"), true};
+    }
 
     std::sort(rows.begin(), rows.end(), [](const Row &a, const Row &b) {
         if (a.connected != b.connected)
@@ -1010,8 +1039,17 @@ void MainWindow::connectSelectedDevice()
     const QString address = selectedAddress();
     if (address.isEmpty())
         return;
+    const QString source = selectedSource();
+    // iOS 设备不需要 adb/hdc 那种“连接”动作，插上就是连好的
+    if (source == QLatin1String("ios")) {
+        QMessageBox::information(
+            this, QStringLiteral("iOS 设备"),
+            QStringLiteral("iOS 设备通过 USB/网络直接可见，不需要手动连接。\n\n"
+                           "当前只做设备识别，不提供调试功能。"));
+        return;
+    }
     m_connectButton->setEnabled(false);
-    if (selectedSource() == QLatin1String("hdc"))
+    if (source == QLatin1String("hdc"))
         m_hdc->connectTo(address);
     else
         m_adb->connectTo(address);
@@ -1023,6 +1061,11 @@ void MainWindow::disconnectSelectedDevice()
     if (address.isEmpty()) {
         QMessageBox::information(this, QStringLiteral("提示"),
                                  QStringLiteral("先在设备列表里选中一台设备"));
+        return;
+    }
+    if (selectedSource() == QLatin1String("ios")) {
+        QMessageBox::information(this, QStringLiteral("iOS 设备"),
+                                 QStringLiteral("iOS 设备请在手机端断开，或在系统里拔掉数据线。"));
         return;
     }
     if (selectedSource() == QLatin1String("hdc")) {

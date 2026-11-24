@@ -16,6 +16,7 @@ SOURCES += \
     wifiinfo.cpp \
     adbmanager.cpp \
     hdcmanager.cpp \
+    iosmanager.cpp \
     qrcodegen/qrcodegen.cpp
 
 HEADERS += \
@@ -23,6 +24,7 @@ HEADERS += \
     wifiinfo.h \
     adbmanager.h \
     hdcmanager.h \
+    iosmanager.h \
     textdecode.h \
     qrcodegen/qrcodegen.hpp
 

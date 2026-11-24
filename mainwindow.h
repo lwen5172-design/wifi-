@@ -8,6 +8,7 @@
 
 #include "adbmanager.h"
 #include "hdcmanager.h"
+#include "iosmanager.h"
 
 class QLabel;
 class QLineEdit;
@@ -101,6 +102,7 @@ private:
 
     AdbManager *m_adb = nullptr;
     HdcManager *m_hdc = nullptr;
+    IosManager *m_ios = nullptr;
     QTimer *m_pollTimer = nullptr;
     QTimer *m_pairWatchTimer = nullptr;
 
@@ -111,6 +113,7 @@ private:
     QList<HdcDiscovered> m_hdcKnownOnline;  // 记住的地址里 TCP 还连得上的
     QHash<QString, QString> m_hdcDeviceNames; // connectKey -> 设备名
     QHash<QString, QString> m_adbDeviceNames; // serial -> 设备名
+    QList<IosDevice> m_iosDevices;
 
     // 二维码配对状态机
     enum class PairPhase { Idle, WaitingScan, Pairing, WaitingConnect };
