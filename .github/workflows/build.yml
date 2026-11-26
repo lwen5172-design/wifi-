@@ -16,6 +16,10 @@ on:
 permissions:
   contents: write
 
+env:
+  # 和本机开发环境保持一致（Qt 6.12.0 / MinGW 13.1）
+  QT_VERSION: "6.12.0"
+
 jobs:
   windows:
     runs-on: windows-latest
@@ -25,9 +29,36 @@ jobs:
       - name: 安装 Qt 6
         uses: jurplel/install-qt-action@v4
         with:
-          version: "6.8.3"
+          version: ${{ env.QT_VERSION }}
           arch: win64_mingw
           cache: true
+
+      - name: 使用 Qt 自带的 MinGW
+        shell: pwsh
+        run: |
+          # runner 自带 C:\mingw64（GCC 15），和 Qt 的 MinGW 13 不兼容，
+          # 链接时会报 undefined reference to __imp___argc，必须用 Qt 那一套
+          $qtRoot = Split-Path $env:QT_ROOT_DIR
+          $candidates = @(
+            (Join-Path $qtRoot "Tools"),
+            (Join-Path $env:QT_ROOT_DIR "..\..\Tools")
+          )
+          $found = $null
+          foreach ($dir in $candidates) {
+            if (Test-Path $dir) {
+              $found = Get-ChildItem $dir -Directory -Filter "mingw*" |
+                       Sort-Object Name -Descending | Select-Object -First 1
+              if ($found) { break }
+            }
+          }
+          if (-not $found) {
+            Write-Error "找不到 Qt 自带的 MinGW，目录：$($candidates -join ', ')"
+            exit 1
+          }
+          $bin = Join-Path $found.FullName "bin"
+          Write-Host "使用 $bin"
+          & (Join-Path $bin "g++.exe") --version | Select-Object -First 1
+          $bin | Out-File -FilePath $env:GITHUB_PATH -Append -Encoding utf8
 
       - name: 编译
         shell: cmd
@@ -58,7 +89,7 @@ jobs:
       - name: 安装 Qt 6
         uses: jurplel/install-qt-action@v4
         with:
-          version: "6.8.3"
+          version: ${{ env.QT_VERSION }}
           cache: true
 
       - name: 编译
