@@ -16,49 +16,37 @@ on:
 permissions:
   contents: write
 
-env:
-  # 和本机开发环境保持一致（Qt 6.12.0 / MinGW 13.1）
-  QT_VERSION: "6.12.0"
-
 jobs:
   windows:
     runs-on: windows-latest
+    env:
+      # 说明：Qt 6.12.0 的 Windows 安装包目录结构 aqt 解析不了（只有 msvc / _mingw 变体），
+      # 所以 Windows 用 6.10.0；macOS 用 6.12.0。代码本身两边都能编。
+      QT_VERSION: "6.10.0"
     steps:
       - uses: actions/checkout@v4
 
-      - name: 安装 Qt 6
+      - name: 安装 Qt 6 + MinGW
         uses: jurplel/install-qt-action@v4
         with:
           version: ${{ env.QT_VERSION }}
           arch: win64_mingw
+          # runner 自带 C:\mingw64 是 GCC 15，和 Qt 的 MinGW 13 不兼容，
+          # 链接时会报 undefined reference to __imp___argc，必须用 Qt 那一套
+          tools: "tools_mingw1310"
           cache: true
 
-      - name: 使用 Qt 自带的 MinGW
+      - name: 确认用的是 Qt 自带的 MinGW
         shell: pwsh
         run: |
-          # runner 自带 C:\mingw64（GCC 15），和 Qt 的 MinGW 13 不兼容，
-          # 链接时会报 undefined reference to __imp___argc，必须用 Qt 那一套
-          $qtRoot = Split-Path $env:QT_ROOT_DIR
-          $candidates = @(
-            (Join-Path $qtRoot "Tools"),
-            (Join-Path $env:QT_ROOT_DIR "..\..\Tools")
-          )
-          $found = $null
-          foreach ($dir in $candidates) {
-            if (Test-Path $dir) {
-              $found = Get-ChildItem $dir -Directory -Filter "mingw*" |
-                       Sort-Object Name -Descending | Select-Object -First 1
-              if ($found) { break }
-            }
-          }
-          if (-not $found) {
-            Write-Error "找不到 Qt 自带的 MinGW，目录：$($candidates -join ', ')"
+          g++ --version | Select-Object -First 1
+          mingw32-make --version | Select-Object -First 1
+          $gxx = (Get-Command g++).Source
+          Write-Host "g++ = $gxx"
+          if ($gxx -notmatch "Qt") {
+            Write-Error "g++ 不是 Qt 自带的 MinGW：$gxx"
             exit 1
           }
-          $bin = Join-Path $found.FullName "bin"
-          Write-Host "使用 $bin"
-          & (Join-Path $bin "g++.exe") --version | Select-Object -First 1
-          $bin | Out-File -FilePath $env:GITHUB_PATH -Append -Encoding utf8
 
       - name: 编译
         shell: cmd
@@ -83,6 +71,9 @@ jobs:
 
   macos:
     runs-on: macos-latest
+    env:
+      # macOS 用 6.12.0：6.8 系列的 qyieldcpu.h 和 Xcode 26 SDK 不兼容
+      QT_VERSION: "6.12.0"
     steps:
       - uses: actions/checkout@v4
 
