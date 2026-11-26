@@ -1,1 +1,102 @@
-I2lmbmRlZiBNQUNXSUZJUEFSU0VfSAojZGVmaW5lIE1BQ1dJRklQQVJTRV9ICgojaW5jbHVkZSA8UVN0cmluZz4KI2luY2x1ZGUgPFFTdHJpbmdMaXN0PgoKLy8gbWFjT1Mg5LiK6K+75Y+WIFdpRmkg5L+h5oGv55qE5Yeg5Liq5ZG95Luk6L6T5Ye66Kej5p6Q5Zmo44CCCi8vIOWNleeLrOaKveWHuuadpeaYr+WboOS4uuWug+S7rOWPquaYr+e6r+aWh+acrOWkhOeQhu+8muS4jeS+nei1luWFt+S9k+W5s+WPsOWuj++8jAovLyDlj6/ku6XlnKjku7vkvZXlubPlj7DkuIrljZXni6zpqozor4HvvIjop4Egd2lmaWluZm8uY3BwIOmHjOeahOS9v+eUqO+8ieOAggpuYW1lc3BhY2UgTWFjV2lmaVBhcnNlIHsKCi8vIGlwY29uZmlnIGdldHN1bW1hcnkgPGlmYWNlPiDnmoTovpPlh7rph4zmnInkuIDooYzlvaLlpoIgIiAgU1NJRCA6IE15V2lmaSLjgIIKLy8g5rKh57uZ5a6a5L2N5p2D6ZmQ5pe25YC85Y+v6IO95pivIDxyZWRhY3RlZD7vvIzov5nnp43mg4XlhrXov5Tlm57nqbrvvIzlpb3orqnosIPnlKjmlrnnu6fnu63lhZzlupXjgIIKaW5saW5lIFFTdHJpbmcgaXBjb25maWdTdW1tYXJ5KGNvbnN0IFFTdHJpbmcgJm91dHB1dCkKewogICAgY29uc3QgUVN0cmluZ0xpc3QgbGluZXMgPSBvdXRwdXQuc3BsaXQoUUxhdGluMUNoYXIoJ1xuJykpOwogICAgZm9yIChjb25zdCBRU3RyaW5nICZyYXdMaW5lIDogbGluZXMpIHsKICAgICAgICBjb25zdCBRU3RyaW5nIGxpbmUgPSByYXdMaW5lLnRyaW1tZWQoKTsKICAgICAgICBpZiAoIWxpbmUuc3RhcnRzV2l0aChRU3RyaW5nTGl0ZXJhbCgiU1NJRCIpKSkKICAgICAgICAgICAgY29udGludWU7CiAgICAgICAgY29uc3QgaW50IHNlcCA9IGxpbmUuaW5kZXhPZihRTGF0aW4xQ2hhcignOicpKTsKICAgICAgICBpZiAoc2VwIDwgMCkKICAgICAgICAgICAgY29udGludWU7CiAgICAgICAgY29uc3QgUVN0cmluZyBzc2lkID0gbGluZS5taWQoc2VwICsgMSkudHJpbW1lZCgpOwogICAgICAgIGlmIChzc2lkLmlzRW1wdHkoKSB8fCBzc2lkLmNvbnRhaW5zKFFTdHJpbmdMaXRlcmFsKCJyZWRhY3RlZCIpLCBRdDo6Q2FzZUluc2Vuc2l0aXZlKSkKICAgICAgICAgICAgY29udGludWU7CiAgICAgICAgcmV0dXJuIHNzaWQ7CiAgICB9CiAgICByZXR1cm4gUVN0cmluZygpOwp9CgovLyBuZXR3b3Jrc2V0dXAgLWdldGFpcnBvcnRuZXR3b3JrIOeahOi+k+WHuuW9ouWmgiAiQ3VycmVudCBXaS1GaSBOZXR3b3JrOiBNeVNTSUQi77ybCi8vIOayoei/nuS4iuaXtuaYryAiWW91IGFyZSBub3QgYXNzb2NpYXRlZCB3aXRoIGFuIEFpclBvcnQgbmV0d29yay4i77yM6Ieq54S25Yy56YWN5LiN5LiK44CCCmlubGluZSBRU3RyaW5nIG5ldHdvcmtzZXR1cEFpcnBvcnQoY29uc3QgUVN0cmluZyAmb3V0cHV0KQp7CiAgICBjb25zdCBRU3RyaW5nIHByZWZpeCA9IFFTdHJpbmdMaXRlcmFsKCJDdXJyZW50IFdpLUZpIE5ldHdvcms6Iik7CiAgICBjb25zdCBpbnQgcG9zID0gb3V0cHV0LmluZGV4T2YocHJlZml4KTsKICAgIGlmIChwb3MgPCAwKQogICAgICAgIHJldHVybiBRU3RyaW5nKCk7CiAgICBRU3RyaW5nIHNzaWQgPSBvdXRwdXQubWlkKHBvcyArIHByZWZpeC5zaXplKCkpOwogICAgY29uc3QgaW50IG5ld2xpbmUgPSBzc2lkLmluZGV4T2YoUUxhdGluMUNoYXIoJ1xuJykpOwogICAgaWYgKG5ld2xpbmUgPj0gMCkKICAgICAgICBzc2lkLnRydW5jYXRlKG5ld2xpbmUpOwogICAgaWYgKHNzaWQuZW5kc1dpdGgoUUxhdGluMUNoYXIoJ1xyJykpKQogICAgICAgIHNzaWQuY2hvcCgxKTsKICAgIC8vIOWOu+aOieWGkuWPt+WQjueahOmCo+S4gOS4quagvOW8j+epuuagvO+8jOS9huS/neeVmSBTU0lEIOiHqui6q+eahOmmluWwvuepuuagvAogICAgaWYgKHNzaWQuc3RhcnRzV2l0aChRTGF0aW4xQ2hhcignICcpKSkKICAgICAgICBzc2lkLnJlbW92ZSgwLCAxKTsKICAgIHJldHVybiBzc2lkOwp9CgppbmxpbmUgaW50IGxlYWRpbmdJbmRlbnQoY29uc3QgUVN0cmluZyAmbGluZSkKewogICAgaW50IGluZGVudCA9IDA7CiAgICBmb3IgKGNvbnN0IFFDaGFyIGNoIDogbGluZSkgewogICAgICAgIGlmIChjaCA9PSBRTGF0aW4xQ2hhcignICcpKQogICAgICAgICAgICArK2luZGVudDsKICAgICAgICBlbHNlIGlmIChjaCA9PSBRTGF0aW4xQ2hhcignXHQnKSkKICAgICAgICAgICAgaW5kZW50ICs9IDQ7CiAgICAgICAgZWxzZQogICAgICAgICAgICBicmVhazsKICAgIH0KICAgIHJldHVybiBpbmRlbnQ7Cn0KCi8vIHN5c3RlbV9wcm9maWxlciBTUEFpclBvcnREYXRhVHlwZSDnmoTovpPlh7rmmK/oi7HmlofnmoTvvIjkuI3lj5fns7vnu5/or63oqIDlvbHlk43vvInvvIznu5PmnoTlpKfoh7TmmK8KLy8gICAgIEN1cnJlbnQgTmV0d29yayBJbmZvcm1hdGlvbjoKLy8gICAgICAgTXlTU0lEOgovLyAgICAgICAgIFBIWSBNb2RlOiA4MDIuMTFheAovLyAgICAgICAgIFNlY3VyaXR5OiBXUEEyIFBlcnNvbmFsCi8vIOWPliAiQ3VycmVudCBOZXR3b3JrIEluZm9ybWF0aW9uOiIg5LiL6Z2i57yp6L+b5pu05rex55qE56ys5LiA6KGM5L2c5Li6IFNTSUTjgIIKaW5saW5lIFFTdHJpbmcgc3lzdGVtUHJvZmlsZXIoY29uc3QgUVN0cmluZyAmb3V0cHV0KQp7CiAgICBjb25zdCBRU3RyaW5nTGlzdCBsaW5lcyA9IG91dHB1dC5zcGxpdChRTGF0aW4xQ2hhcignXG4nKSk7CiAgICBpbnQgY3VycmVudCA9IC0xOwogICAgZm9yIChpbnQgaSA9IDA7IGkgPCBsaW5lcy5zaXplKCk7ICsraSkgewogICAgICAgIGlmIChsaW5lcy5hdChpKS50cmltbWVkKCkgPT0gUVN0cmluZ0xpdGVyYWwoIkN1cnJlbnQgTmV0d29yayBJbmZvcm1hdGlvbjoiKSkgewogICAgICAgICAgICBjdXJyZW50ID0gaTsKICAgICAgICAgICAgYnJlYWs7CiAgICAgICAgfQogICAgfQogICAgaWYgKGN1cnJlbnQgPCAwKQogICAgICAgIHJldHVybiBRU3RyaW5nKCk7CgogICAgY29uc3QgaW50IGJhc2VJbmRlbnQgPSBsZWFkaW5nSW5kZW50KGxpbmVzLmF0KGN1cnJlbnQpKTsKICAgIGludCBmaXJzdCA9IGN1cnJlbnQgKyAxOwogICAgd2hpbGUgKGZpcnN0IDwgbGluZXMuc2l6ZSgpICYmIGxpbmVzLmF0KGZpcnN0KS50cmltbWVkKCkuaXNFbXB0eSgpKQogICAgICAgICsrZmlyc3Q7CiAgICBpZiAoZmlyc3QgPj0gbGluZXMuc2l6ZSgpIHx8IGxlYWRpbmdJbmRlbnQobGluZXMuYXQoZmlyc3QpKSA8PSBiYXNlSW5kZW50KQogICAgICAgIHJldHVybiBRU3RyaW5nKCk7CgogICAgUVN0cmluZyBzc2lkID0gbGluZXMuYXQoZmlyc3QpLnRyaW1tZWQoKTsKICAgIGlmIChzc2lkLmVuZHNXaXRoKFFMYXRpbjFDaGFyKCc6JykpKQogICAgICAgIHNzaWQuY2hvcCgxKTsKICAgIGlmIChzc2lkLmNvbnRhaW5zKFFTdHJpbmdMaXRlcmFsKCJyZWRhY3RlZCIpLCBRdDo6Q2FzZUluc2Vuc2l0aXZlKSkKICAgICAgICByZXR1cm4gUVN0cmluZygpOwogICAgcmV0dXJuIHNzaWQ7Cn0KCn0gLy8gbmFtZXNwYWNlIE1hY1dpZmlQYXJzZQoKI2VuZGlmIC8vIE1BQ1dJRklQQVJTRV9ICg==
+#ifndef MACWIFIPARSE_H
+#define MACWIFIPARSE_H
+
+#include <QString>
+#include <QStringList>
+
+// macOS 上读取 WiFi 信息的几个命令输出解析器。
+// 单独抽出来是因为它们只是纯文本处理：不依赖具体平台宏，
+// 可以在任何平台上单独验证（见 wifiinfo.cpp 里的使用）。
+namespace MacWifiParse {
+
+// ipconfig getsummary <iface> 的输出里有一行形如 "  SSID : MyWifi"。
+// 没给定位权限时值可能是 <redacted>，这种情况返回空，好让调用方继续兜底。
+inline QString ipconfigSummary(const QString &output)
+{
+    const QStringList lines = output.split(QLatin1Char('\n'));
+    for (const QString &rawLine : lines) {
+        const QString line = rawLine.trimmed();
+        if (!line.startsWith(QStringLiteral("SSID")))
+            continue;
+        const int sep = line.indexOf(QLatin1Char(':'));
+        if (sep < 0)
+            continue;
+        const QString ssid = line.mid(sep + 1).trimmed();
+        if (ssid.isEmpty() || ssid.contains(QStringLiteral("redacted"), Qt::CaseInsensitive))
+            continue;
+        return ssid;
+    }
+    return QString();
+}
+
+// networksetup -getairportnetwork 的输出形如 "Current Wi-Fi Network: MySSID"；
+// 没连上时是 "You are not associated with an AirPort network."，自然匹配不上。
+inline QString networksetupAirport(const QString &output)
+{
+    const QString prefix = QStringLiteral("Current Wi-Fi Network:");
+    const int pos = output.indexOf(prefix);
+    if (pos < 0)
+        return QString();
+    QString ssid = output.mid(pos + prefix.size());
+    const int newline = ssid.indexOf(QLatin1Char('\n'));
+    if (newline >= 0)
+        ssid.truncate(newline);
+    if (ssid.endsWith(QLatin1Char('\r')))
+        ssid.chop(1);
+    // 去掉冒号后的那一个格式空格，但保留 SSID 自身的首尾空格
+    if (ssid.startsWith(QLatin1Char(' ')))
+        ssid.remove(0, 1);
+    return ssid;
+}
+
+inline int leadingIndent(const QString &line)
+{
+    int indent = 0;
+    for (const QChar ch : line) {
+        if (ch == QLatin1Char(' '))
+            ++indent;
+        else if (ch == QLatin1Char('\t'))
+            indent += 4;
+        else
+            break;
+    }
+    return indent;
+}
+
+// system_profiler SPAirPortDataType 的输出是英文的（不受系统语言影响），结构大致是
+//     Current Network Information:
+//       MySSID:
+//         PHY Mode: 802.11ax
+//         Security: WPA2 Personal
+// 取 "Current Network Information:" 下面缩进更深的第一行作为 SSID。
+inline QString systemProfiler(const QString &output)
+{
+    const QStringList lines = output.split(QLatin1Char('\n'));
+    int current = -1;
+    for (int i = 0; i < lines.size(); ++i) {
+        if (lines.at(i).trimmed() == QStringLiteral("Current Network Information:")) {
+            current = i;
+            break;
+        }
+    }
+    if (current < 0)
+        return QString();
+
+    const int baseIndent = leadingIndent(lines.at(current));
+    int first = current + 1;
+    while (first < lines.size() && lines.at(first).trimmed().isEmpty())
+        ++first;
+    if (first >= lines.size() || leadingIndent(lines.at(first)) <= baseIndent)
+        return QString();
+
+    QString ssid = lines.at(first).trimmed();
+    if (ssid.endsWith(QLatin1Char(':')))
+        ssid.chop(1);
+    if (ssid.contains(QStringLiteral("redacted"), Qt::CaseInsensitive))
+        return QString();
+    return ssid;
+}
+
+} // namespace MacWifiParse
+
+#endif // MACWIFIPARSE_H

@@ -1,1 +1,157 @@
-IyBXaUZpIOaXoOe6v+iwg+ivleWKqeaJiwoKUXQgNiBXaWRnZXRzIOW3peWFt++8mioq5omr56CB6YWN5a+5KirvvIjlkowgQW5kcm9pZCBTdHVkaW8g5LiA5qC355qE5L2T6aqM77yJKyAqKumFjeWvueeggemFjeWvuSoq5Y+M6YCa6YGT77yM5aSW5Yqg5LiA5Liq5a6e5pe26K6+5aSH5YiX6KGo77yM5pSv5oyB5aSa5Y+w6K6+5aSH44CC5a6J5Y2T6LWwIGBhZGJg77yM6bi/6JKZIE5FWFQg6LWwIGBoZGNg77yMaVBob25lIOi1sOezu+e7n+iHquW4pueahCB1c2JtdXhk44CCCgrmlK/mjIEgKipXaW5kb3dzKiog5ZKMICoqbWFjT1MqKu+8iEludGVsIC8gQXBwbGUgU2lsaWNvbiDlnYflj6/vvInjgIIKCiMjIOS4i+i9vQoK5YiwIFtSZWxlYXNlc10oaHR0cHM6Ly9naXRodWIuY29tL2x3ZW41MTcyLWRlc2lnbi93aWZpLS9yZWxlYXNlcy9sYXRlc3QpIOS4i+i9veWvueW6lOW5s+WPsOeahOWuieijheWMhe+8mgoKfCDlubPlj7AgfCDmlofku7YgfCDor7TmmI4gfAp8IC0tLSB8IC0tLSB8IC0tLSB8CnwgV2luZG93cyB8IGBXaWZpRGVidWdIZWxwZXItcG9ydGFibGUtd2luNjQuemlwYCB8IOS+v+aQuueJiO+8jOino+WOi+WQjuWPjOWHuyBgV2lmaURlYnVnSGVscGVyLmV4ZWDvvIzkuI3pnIDopoHlronoo4UgfAp8IG1hY09T77yIQXBwbGUgU2lsaWNvbu+8iSB8IGBXaWZpRGVidWdIZWxwZXItbWFjb3MtYXJtNjQuZG1nYCB8IOaJk+W8gOWQjuaKiiBhcHAg5ouW6L+b44CM5bqU55So56iL5bqP44CN77yb5pyq562+5ZCN77yM56ys5LiA5qyh6ZyA5Y+z6ZSuIOKGkuOAjOaJk+W8gOOAjSB8Cgo+IE1hYyDniYjnlLEgR2l0SHViIEFjdGlvbnMg5ZyoIG1hY09TIOaehOW7uuacuuS4iuiHquWKqOe8luivke+8iOingSBgLmdpdGh1Yi93b3JrZmxvd3MvYnVpbGQueW1sYO+8ie+8jOayoeaciSBNYWMg5Lmf6IO95Ye65YyF44CCCgojIyDkuKTnp43phY3lr7nmlrnlvI8KCiMjIyAxLiDmiavnoIHphY3lr7nvvIjmjqjojZDvvIkKCuaJi+acuiBg6K6+572uIOKGkiDlvIDlj5HogIXpgInpobkg4oaSIOaXoOe6v+iwg+ivlSDihpIg5L2/55So5LqM57u056CB6YWN5a+56K6+5aSHYO+8jOaJq+eoi+W6j+mHjOOAjOaJq+eggemFjeWvueOAjemhteeahOS6jOe7tOeggeOAgioq6YWN5a+55ZKM6L+e5o6l5LiA5q2l5a6M5oiQ77yM5LiN55So6L6T6YWN5a+556CB44CB5LiN55So55yL56uv5Y+j44CCKioKCuWOn+eQhu+8iOS4jeaYr+iHquW3seWunueOsOWKoOWvhuWNj+iuru+8jOaJgOacieaPoeaJi+mDveS6pOe7mSBhZGLvvInvvJoKCjEuIOeoi+W6j+eUn+aIkOmaj+acuuacjeWKoeWQjeWSjOWvhuegge+8jOaLvOaIkCBgV0lGSTpUOkFEQjtTOjzlkI3lrZc+O1A6POWvhueggT47O2Ag5pi+56S65oiQ5LqM57u056CBCjIuIOaJi+acuuaJq+eggeWQju+8jOWcqOWxgOWfn+e9keW5v+aSrSBgX2FkYi10bHMtcGFpcmluZy5fdGNwYCDmnI3liqHvvIzlrp7kvovlkI3lsLHmmK/pgqPkuKogYDzlkI3lrZc+YO+8jOWvhueggeS9nOS4uumFjeWvueWHreaNrgozLiDnqIvluo/mr4/np5Lova7or6IgYGFkYiBtZG5zIHNlcnZpY2VzYO+8jOWPkeeOsOivpeacjeWKoeWQjuaJp+ihjCBgYWRiIHBhaXIgPGlwOnBvcnQ+IDzlr4bnoIE+YAo0LiDphY3lr7nmiJDlip/lkI7nu6fnu63nm5HlkKwgYF9hZGItdGxzLWNvbm5lY3QuX3RjcGDvvIzoh6rliqggYGFkYiBjb25uZWN0YCDlrozmiJDov57mjqUKClNQQUtFMiArIFRMUyDnmoTliqDlr4bmj6HmiYvnlLEgYGFkYiBwYWlyYCDlhoXpg6jlrozmiJDvvIznqIvluo/lj6rotJ/otKPnlJ/miJDnoIHjgIHlj5HnjrDmnI3liqHjgIHosIPnlKggYWRi44CCCgojIyMgMi4g6YWN5a+556CB6YWN5a+577yI5aSH6YCJ77yJCgrlnKjml6Dnur/osIPor5XpobXngrnjgIzkvb/nlKjphY3lr7nnoIHphY3lr7norr7lpIfjgI3vvIzmiormiYvmnLrmmL7npLrnmoQgYElQOuerr+WPo2Ag5ZKMIDYg5L2N6YWN5a+556CB5aGr6L+b5Y+z5L6n6Z2i5p2/77yM54K544CM6YWN5a+544CN44CCCgojIyMgMy4gV2lGaSDlhaXnvZHvvIjmiYvmnLrkuI3lnKjlkIzkuIDnvZHnu5zml7bvvIkKCuOAjFdpRmkg5YWl572R44CN6aG15pi+56S65b2T5YmNIFdpRmkg55qE5LqM57u056CB77yM5omL5py65omr56CB6Ieq5Yqo5YWl572R44CC6L+Z5piv5omr56CB6YWN5a+555qE5YmN5o+Q44CCCgojIyDpuL/okpkgTkVYVO+8iGhkY++8iQoKSGFybW9ueU9TIE5FWFQg5LiN6LeRIGFkYu+8jOS5n+ayoeacieWuieWNk+mCo+Wll+S6jOe7tOeggS/phY3lr7nnoIHljY/orq7jgILnqIvluo/nlKggYGhkY2Ag5L2c5Li656ys5LqM5Liq5ZCO56uv77yaCgoxLiDmiYvmnLrkuIrvvJrorr7nva4g4oaSIOezu+e7nyDihpIg5byA5Y+R6ICF6YCJ6aG5IOKGkiAqKuaXoOe6v+iwg+ivlSoq77yM5omT5byA5Y2z5Y+vCjIuIOaKiuaJi+acuuaXoOe6v+iwg+ivlemhteaYvuekuueahCBgSVA656uv5Y+jYCDloavov5vlj7PkvqfjgIzpuL/okpnml6Dnur/osIPor5XvvIhoZGPvvInjgI3pnaLmnb/vvIzngrnjgIzov57mjqXjgI3vvIjnrYnku7fkuo4gYGhkYyB0Y29ubiBJUDrnq6/lj6Ng77yJCjMuIOi/nuS4iuWQjuiuvuWkh+S8muWHuueOsOWcqOWIl+ihqOmHjO+8jCoq5Z6L5Y+35YiX5pi+56S66K6+5aSH5ZCNKirvvIjlpoIgYEhVQVdFSSBNYXRlIDYwIFByb2DvvIzpgJrov4cgYGhkYyBzaGVsbCBwYXJhbSBnZXQgY29uc3QucHJvZHVjdC5uYW1lYCDmn6Xor6LvvInvvIzkuIvmrKHlkK/liqjoh6rliqjph43ov54KNC4g5aaC5p6c56iL5bqP6Ieq5bex6IO95Y+R546w6K6+5aSH77yIVURQIOWNleaSreaOoua1i+acieaViOaXtu+8ie+8jOS8muiHquWKqOS7peOAjOWPr+i/nuaOpe+8iOm4v+iSme+8ieOAjeWIl+WHuuadpe+8jOWPjOWHu+WNs+WPr+i/nuaOpe+8jOS4jeeUqOaJi+WhqwoKKirkuLrku4DkuYjkuI3nlKggYGhkYyBkaXNjb3ZlcmDvvIzkuZ/kuI3nlKjlronljZPpgqPlpZcqKu+8mgoKLSDlronljZPnmoToh6rliqjlj5HnjrDpnaAgbUROU++8iGBhZGJkYCDlub/mkq0gYF9hZGItdGxzLWNvbm5lY3QuX3RjcGDvvInvvIxgYWRiIG1kbnMgc2VydmljZXNgIOebtOaOpeiDveWIl+WHuuadpeOAgioq6bi/6JKZ55qEIGhkYyDph4zmsqHmnInku7vkvZUgbUROUyDlrp7njrAqKu+8iOWumOaWuea6kOeggeWFqOmHj+aQnCBgbWRuc2AvYGJvbmpvdXJgL2BkbnNfc2RgL2BhdmFoaWAg6Zu25ZG95Lit77yJ77yM5omA5Lul5a6J5Y2T6YKj5aWX5peg5rOV5aSN55So44CCCi0gaGRjIOiHquW3seeahOWPkeeOsOacuuWItuaYr+W+gCBVRFAgODcxMCDlj5EgYE9IT1MgSERDYCDlub/mkq3vvIxkYWVtb24g5ZueIGBPSE9TIEhEQy0856uv5Y+jPmDjgILnqIvluo/oh6rlt7Hlrp7njrDkuobov5nlpZfljY/orq7vvIzlubbmlLnmiJAqKumAkOWcsOWdgOWNleaSrSoq77yI6YOo5YiGIGhkYyDniYjmnKzlj5HkuI3lh7rmraPnoa7lub/mkq3vvIzot6/nlLHlmajkuZ/luLjov4fmu6Tlub/mkq3lkoznu4Tmkq3vvInjgIIKLSDimqDvuI8g6YOo5YiG5Zu65Lu25LiK6L+Z5p2h6Lev5Lmf5LiN6YCa77ya5a6e5rWLIEhhcm1vbnlPUyA377yIQVBJIDI277yJ55qEIGhkY2Qg6Jm954S257uR5a6a5LqGIFVEUCA4NzEw77yM5L2GKirku47kuI3or7vlj5YqKu+8iOaOpeaUtumYn+WIl+WPqua2qOS4jeWHj++8jDMwIOenkuS4jea2iOi0ue+8ie+8jGBoZGMgZGlzY292ZXJgIOaBkuS4uiAw77yM5Y2V5pKt5o6i5rWL5Lmf5peg5bqU562U44CC6L+Z5piv6K6+5aSH5L6n55qE6Zeu6aKY77yM56iL5bqP5peg5rOV57uV6L+H44CCCgoqKuerr+WPo+WPmOS6huaAjuS5iOWKnioq77ya5omL5py65q+P5qyh6YeN5paw5omT5byA44CM5peg57q/6LCD6K+V44CN77yM6LCD6K+V56uv5Y+j6YO95Lya5o2i5LiA5Liq44CC56iL5bqP5Lya6K6w5L2P5LiK5qyh6L+e5LiK55qEIGBJUDrnq6/lj6Ng77yM5LiL5qyh5ZCv5Yqo6Ieq5Yqo6YeN6L+e77yb5aaC5p6c56uv5Y+j5bey57uP5Y+Y5LqG77yM5Zyo6K6+5aSH5YiX6KGo6YeMKirlj7PplK7pgqPkuIDooYwg4oaSIOOAjOS/ruaUueerr+WPo+KApuOAjSoq77yM5aGr5LiK5omL5py65peg57q/6LCD6K+V6aG15pi+56S655qE5paw56uv5Y+j77yM5Lya56uL5Yi75oyJ5paw5Zyw5Z2A6YeN6L+e5bm25pu05paw6K6w5b+G44CC5Y+z6ZSu6I+c5Y2V6L+Y5pyJ44CM6YeN5paw6L+e5o6l44CN5ZKM44CM5aSN5Yi25Zyw5Z2A44CN44CCCgo+IOabvue7j+ivlei/h+iHquWKqOaJq+aPj+err+WPo+auteadpeaJvuWbnuiuvuWkh++8jOS9huWFqOauteaJq+aPj+imgSA2MCDnp5LvvIzlubblj5Hpq5jkuobov5jkvJrmiormiYvmnLrnmoTosIPor5XmnI3liqHmiavmjILvvIzogIzkuJTnq6/lj6PmnKzmnaXlsLHmmL7npLrlnKjmiYvmnLrlsY/luZXkuIrvvIznm7TmjqXmlLnkuIDkuIvmm7Tlv6vvvIzmiYDku6XmsqHmnInkv53nlZnov5nkuKrlip/og73jgIIKCioq6K6w5L2P5Zyw5Z2AKirvvJrmr4/mrKHov57kuIrpg73kvJrmioogYElQOuerr+WPo2Ag6K6w5Yiw6K6+572u6YeM77yI5ZCM5LiAIElQIOWPquS/neeVmeacgOaWsOerr+WPo++8ie+8jOS4i+asoeWQr+WKqOiHquWKqOmHjei/nu+8m+WIl+ihqOmHjOaYvuekuuOAjOWPr+i/nuaOpe+8iOS4iuasoei/nuaOpei/h++8ieOAje+8jOebtOaOpeeUqCBUQ1Ag5o6i5rWL6K+l5Zyw5Z2A5piv5ZCm6L+Y5Zyo57q/77yM5LiN6ZyA6KaBIFVEUCDlm57ljIXjgILngrnjgIzmlq3lvIDjgI3kvJrlkIzml7blv5jmjonov5nkuKrlnLDlnYDjgILoi6XorrDkvY/nmoTlnLDlnYDlhajpg6jov57kuI3kuIrvvIzml6Xlv5fkvJrmj5DnpLrjgIzpuL/okpnmr4/mrKHph43lvIDml6Dnur/osIPor5Xnq6/lj6Ppg73kvJrlj5jvvIzor7flnKjmiYvmnLrkuIrnnIvmlrDnq6/lj6PjgI3jgIIKCioqaGRjIOS7juWTquadpSoq77yaRGV2RWNvIFN0dWRpbyDoh6rluKbnmoQgdG9vbGNoYWluc+OAgldpbmRvd3Mg5pivIGBzZGsvZGVmYXVsdC9vcGVuaGFybW9ueS90b29sY2hhaW5zL2hkYy5leGVg77yMbWFjT1Mg5pivIGAvQXBwbGljYXRpb25zL0RldkVjby1TdHVkaW8uYXBwL0NvbnRlbnRzL3Nkay9kZWZhdWx0L29wZW5oYXJtb255L3Rvb2xjaGFpbnMvaGRjYO+8iOaIliBgfi9MaWJyYXJ5L0h1YXdlaS9TZGsvLi4uYO+8ieOAgueoi+W6j+S8muiHquWKqOWcqCBQQVRI44CBRGV2RWNvIFN0dWRpbyDpu5jorqTlronoo4Xnm67lvZXjgIFTREsg55uu5b2V44CB5LiL6L29L+ahjOmdoumHjOaJvu+8m+aJvuS4jeWIsOaXtueCueOAjOmAieaLqSBoZGPjgI3mjIflrprot6/lvoTvvIjkvJrorrDkvY/vvInjgIIKCj4gYGhkYyB0Y29ubiA8a2V5PiAtcmVtb3ZlYCDlnKggMy4wLjBiIOS4iuWunua1i+S4jeeUn+aViO+8jOaJgOS7peOAjOaWreW8gOOAjeaUueeUqCBgaGRjIGtpbGwgLXJgIOmHjeWQryBoZGMg5pyN5Yqh77yI5Lya5pat5byA5omA5pyJIGhkYyDov57mjqXvvInvvIznlYzpnaLkvJrlhYjlvLnnoa7orqTmoYbjgIIKCiMjIOiuvuWkh+WIl+ihqAoK6Ieq5Yqo5rGH5oC75Zub5Liq5p2l5rqQ77yaCgotIGBhZGIgZGV2aWNlcyAtbGAg4oCU4oCUIOW3sui/nuaOpeeahOWuieWNk+iuvuWkhwotIGBhZGIgbWRucyBzZXJ2aWNlc2Ag4oCU4oCUIOWxgOWfn+e9kemHjOWPkeeOsOS9hui/mOayoei/nuaOpeeahOWuieWNk+iuvuWkh++8iOeKtuaAgeaYvuekuuOAjOWPr+i/nuaOpeOAje+8iQotIGBoZGMgbGlzdCB0YXJnZXRzIC12YCDigJTigJQg5bey6L+e5o6l55qE6bi/6JKZ6K6+5aSH77yIVVNCIC8gVENQ77yMQ09NIOS4suWPo+S8muiiq+i/h+a7pO+8iQotIOeoi+W6j+iHquW4pueahCBVRFAg5Y2V5pKt5omr5o+PIOKAlOKAlCDlsYDln5/nvZHph4znmoTpuL/okpnorr7lpIfvvIjnirbmgIHmmL7npLrjgIzlj6/ov57mjqXvvIjpuL/okpnvvInjgI3vvIkKLSDorrDkvY/nmoTpuL/okpnlnLDlnYAg4oCU4oCUIFRDUCDmjqLmtYvov5jlnKjnur/nmoTvvIjnirbmgIHmmL7npLrjgIzlj6/ov57mjqXvvIjkuIrmrKHov57mjqXov4fvvInjgI3vvIkKLSAqKnVzYm11eGQqKiDigJTigJQg6YCa6L+HIFVTQiAvIFdpLUZpIOi/nuWIsOacrOacuueahCBpUGhvbmXjgIFpUGFkCgrlkIzkuIDlj7Dorr7lpIflnKggYWRiIOmHjOWPr+iDveWHuueOsOS4pOadoe+8iFRDUCDlhaXlj6MgKyBtRE5TIOS8oOi+k+WIq+WQje+8ie+8jOeoi+W6j+S8muWQiOW5tuWOu+mHje+8m+m4v+iSmeerr+WPo+aNoui/h+S5i+WQju+8jOWQjOS4gCBJUCDnmoTml6cgYE9mZmxpbmVgIOadoeebruS5n+S4jeS8muWGjeaYvuekuuOAguWIl+ihqOavjyA0IOenkuiHquWKqOWIt+aWsO+8jOWPjOWHu+ihjOWPr+ebtOaOpei/nuaOpe+8jOS5n+WPr+S7pemAieS4reWQjueCueOAjOi/nuaOpeOAjS/jgIzmlq3lvIDjgI3jgIJg5p2l5rqQYCDliJfljLrliIYgYWRiIC8gaGRjIC8gaW9z44CC6bi/6JKZ6K6+5aSH55qE6KGM5Y+v5LulKirlj7PplK4qKu+8muS/ruaUueerr+WPo+OAgemHjeaWsOi/nuaOpeOAgeWkjeWItuWcsOWdgOOAggoKKippT1Mg6K6+5aSHKirvvJrkuI3kvp3otZYgYWRiL2hkY++8jOebtOaOpeivtOiLueaenOmpseWKqOiHquW4pueahCB1c2JtdXhkIOWNj+iuru+8iFdpbmRvd3Mg6LWwIGAxMjcuMC4wLjE6MjcwMTVg77yMbWFjT1Mg6LWw57O757uf6Ieq5bim55qEIGAvdmFyL3J1bi91c2JtdXhkYCBVbml4IOWll+aOpeWtl++8ie+8jOWGjeWOuyBsb2NrZG93bmQg6K+7IGBEZXZpY2VOYW1lYCAvIGBQcm9kdWN0VHlwZWAgLyBgUHJvZHVjdFZlcnNpb25g44CCV2luZG93cyDkuIroo4XkuobjgIxBcHBsZSDorr7lpIfjgI3pqbHliqjlsLHmnInvvIxtYWNPUyDns7vnu5/oh6rluKbvvIzpg73kuI3pnIDopoEgbGliaW1vYmlsZWRldmljZeOAguaJi+acuuesrOS4gOasoei/nuaXtumcgOimgeeCueOAjOS/oeS7u+atpOeUteiEkeOAje+8jOWQpuWImeWPquiDveaYvuekuiBVRElEIOWSjOOAjOacquS/oeS7u+OAjeeKtuaAgeOAguW9k+WJjeWPquWBmuiuvuWkh+ivhuWIq++8jOS4jeaPkOS+m+WuieijheOAgeaIquWbvuOAgeaXpeW/l+etieiwg+ivleWKn+iDveOAggoKKirorr7lpIflkI3np7DliJcqKu+8mmFkYiDorr7lpIfmmL7npLrjgIzljoLllYYg5Z6L5Y+344CN77yI5aaCIGBPUFBPIFBLQjExMGDvvIznlLEgYGdldHByb3Agcm8ucHJvZHVjdC5tYW51ZmFjdHVyZXJgICsgYHJvLnByb2R1Y3QubW9kZWxgIOaLvOaIkO+8ie+8m+m4v+iSmeiuvuWkh+aYvuekuiBgY29uc3QucHJvZHVjdC5uYW1lYO+8iOWmgiBgSFVBV0VJIE1hdGUgNjAgUHJvYO+8ieOAguWQjeensOaYr+W8guatpeafpeivoueahO+8jOWFiOaYvuekuuW3suacieS/oeaBr++8jOafpeWIsOWQjuiHquWKqOWIt+aWsOOAggoKKirov57mjqXmlrnlvI/liJcqKu+8mmBUQ1Bg77yI5peg57q/77yJLyBgVVNCYOOAggoKIyMg6ZmQ5Yi2CgotICoq44CM5peg57q/6LCD6K+V44CN5byA5YWz5b+F6aG75omL5Yqo5omT5byAKirvvIzljIXmi6zmiavnoIHphY3lr7nkuZ/opoHlhYjov5vliLDpgqPkuKrpobXpnaLmiY3miavlvpfliLDnoIHjgILns7vnu5/lronlhajovrnnlYzvvIzku7vkvZXnrKzkuInmlrnnqIvluo/pg73nu5XkuI3ov4fjgIIKLSDmiYvmnLrlkoznlLXohJHlv4XpobvlnKjlkIzkuIDkuKogV2lGaSDkuIvvvIzkuJTot6/nlLHlmajmsqHmnInlvIDlkK/jgIxBUCDpmpTnprvjgI3vvIjlrqLmiLfnq6/kuYvpl7Tml6Dms5XkupLorr/vvInjgIIKLSDlronljZMgLyBIYXJtb255T1MgNCDlj4rku6XkuIvotbAgYWRi77ybKipIYXJtb255T1MgTkVYVCDlj6rmlK/mjIEgSVA656uv5Y+j5omL5Yqo6L+e5o6lKirvvIzmsqHmnInmiavnoIHmiJbphY3lr7nnoIHvvIjpuL/okpnkuI3mj5Dkvpvov5nlpZfljY/orq7vvInjgIIKLSBhZGIg6ZyA6KaBIHBsYXRmb3JtLXRvb2xzIDMxK++8iOimgeaUr+aMgSBgYWRiIG1kbnMgc2VydmljZXNg77yJ44CCCgojIyDmnoTlu7oKCiMjIyBXaW5kb3dzCgpgYGBiYXNoCnFtYWtlIFdpZmlEZWJ1Z0hlbHBlci5wcm8gLXNwZWMgd2luMzItZysrCm1pbmd3MzItbWFrZSAtajgKYGBgCgrpnIDopoEgUXQgNiArIE1pbkdX77yI5pys5py65Li6IFF0IDYuMTIuMCAvIG1pbmd3MTMxMF82NO+8m+eUqOWIsCBRdCBOZXR3b3Jr77yMYFFUICs9IC4uLiBuZXR3b3JrYO+8ie+8jOS7peWPiiBgYWRiYCDlnKggUEFUSCDkuK3vvIjpuL/okpnmlK/mjIHlj6bpnIAgYGhkYy5leGVg77yJ44CCCgojIyMgbWFjT1MKCmBgYGJhc2gKc2ggbWFjL2J1aWxkLnNoICAgICAgICAgICMg5oiW77yacW1ha2UgV2lmaURlYnVnSGVscGVyLnBybyAtc3BlYyBtYWN4LWNsYW5nIENPTkZJRys9cmVsZWFzZSAmJiBtYWtlIC1qOApvcGVuIFdpZmlEZWJ1Z0hlbHBlci5hcHAKYGBgCgrpnIDopoEgWGNvZGUgQ29tbWFuZCBMaW5lIFRvb2xz77yIYHhjb2RlLXNlbGVjdCAtLWluc3RhbGxg77yJ5ZKMIFF0IDbvvIhgYnJldyBpbnN0YWxsIHF0YCDmiJbnlKggUXQgT25saW5lIEluc3RhbGxlcu+8ieOAguS6p+eJqeaYryBgV2lmaURlYnVnSGVscGVyLmFwcGDvvIzlj6/ku6Xnm7TmjqXlj4zlh7vov5DooYzjgIIKCm1hY09TIOS4iuacieWHoOWkhOWSjCBXaW5kb3dzIOS4jeWQjOeahOWcsOaWue+8mgoKLSAqKldpRmkg5L+h5oGvKirvvJpTU0lEIOS7jiBgaXBjb25maWcgZ2V0c3VtbWFyeWAgLyBgbmV0d29ya3NldHVwYCDor7vlj5bvvIzlr4bnoIHku47ns7vnu5/pkqXljJnkuLLor7vvvIhgc2VjdXJpdHkgZmluZC1nZW5lcmljLXBhc3N3b3JkYO+8ieOAguesrOS4gOasoeivu+WvhueggeaXtiBtYWNPUyDkvJrlvLnkuIDmrKHmjojmnYPmoYbvvIzngrnjgIzlhYHorrjjgI3ljbPlj6/vvJvkuZ/lj6/ku6XlnKjjgIzlr4bnoIHkuI7pkqXljJnkuLLorr/pl67jgI3ph4znu5kgc2VjdXJpdHkg5rC45LmF5o6I5p2D44CC5ouS57ud5o6I5p2D55qE6K+d5LqM57u056CB5Y+q6IO95YyF5ZCr572R57uc5ZCN77yM56iL5bqP5Lya5Zyo55WM6Z2i5LiK5o+Q56S644CCCi0gKirlrprkvY3mnYPpmZAqKu+8mui+g+aWsOeahCBtYWNPUyDmiorjgIzor7vlj5blvZPliY0gV2lGaSDlkI3np7DjgI3nrpfkvZzlrprkvY3mnYPpmZDvvIznrKzkuIDmrKHkvJrlvLnmjojmnYPmoYbvvIhgbWFjL0luZm8ucGxpc3RgIOmHjOW3suWGmeWlveivtOaYjuaWh+Wtl++8ieOAggotICoq5bGA5Z+f572R5p2D6ZmQKirvvJptYWNPUyAxNSDotbforr/pl67lsYDln5/nvZHorr7lpIfpnIDopoHljZXni6zmjojmnYPvvIznqIvluo/pppbmrKHmiavmj48v6L+e5o6l5pe25Lya5by544CM5YWB6K646K6/6Zeu5pys5Zyw572R57uc44CN77yM5b+F6aG754K55YWB6K6477yM5ZCm5YiZ6K6+5aSH5YiX6KGo6YeM5LuA5LmI6YO955yL5LiN5Yiw44CCCi0gKiphZGIgLyBoZGMg6Lev5b6EKirvvJptYWNPUyDkuIrlj6sgYGFkYmAgLyBgaGRjYO+8iOayoeaciSBgLmV4ZWDvvInvvIzpu5jorqTkvY3nva7mmK8gYH4vTGlicmFyeS9BbmRyb2lkL3Nkay9wbGF0Zm9ybS10b29sc2DjgIFIb21lYnJldyDnmoQgYC9vcHQvaG9tZWJyZXcvYmluYOOAgURldkVjbyBTdHVkaW8g55qEIGFwcCDljIXlhoXjgILnqIvluo/kvJroh6rliqjmib7vvIzkuZ/lj6/ku6XmiYvliqjmjIflrpogaGRj44CCCi0gKippT1MqKu+8muezu+e7n+iHquW4piB1c2JtdXhk77yM5o+S5LiKIGlQaG9uZSDlsLHog73or4bliKvvvIzkuI3pnIDopoHpop3lpJboo4XpqbHliqjjgIIKCj4g5rKh5pyJ5YGa5Luj56CB562+5ZCNL+WFrOivge+8jOWFtuS7luS6uuesrOS4gOasoeaJk+W8gOWPr+iDvemcgOimgeWPs+mUriDihpLjgIzmiZPlvIDjgI3vvIzmiJbmiafooYwgYHhhdHRyIC1kciBjb20uYXBwbGUucXVhcmFudGluZSBXaWZpRGVidWdIZWxwZXIuYXBwYOOAggoKIyMg5paH5Lu2Cgp8IOaWh+S7tiB8IOS9nOeUqCB8CnwgLS0tIHwgLS0tIHwKfCBgbWFpbi5jcHBgIHwg56iL5bqP5YWl5Y+jIHwKfCBgbWFpbndpbmRvdy5oLy5jcHBgIHwg55WM6Z2i77ya5LqM57u056CB44CB6K6+5aSH5YiX6KGo44CB6YWN5a+56Z2i5p2/44CB5pel5b+X44CB5omr56CB6YWN5a+554q25oCB5py6IHwKfCBgd2lmaWluZm8uaC8uY3BwYCB8IOivu+WPluW9k+WJjSBXaUZpIOeahCBTU0lEL+WvhueggS/liqDlr4bmlrnlvI/vvIhXaW5kb3dzIOi1sCBuZXRzaO+8jG1hY09TIOi1sCBpcGNvbmZpZyArIOmSpeWMmeS4su+8iSB8CnwgYGFkYm1hbmFnZXIuaC8uY3BwYCB8IOW8guatpeWwgeijhSBgcGFpcmAgLyBgY29ubmVjdGAgLyBgZGlzY29ubmVjdGAgLyBgbWRucyBzZXJ2aWNlc2AgLyBgZGV2aWNlc2AgfAp8IGBoZGNtYW5hZ2VyLmgvLmNwcGAgfCDlvILmraXlsIHoo4UgYHRjb25uYCAvIGBsaXN0IHRhcmdldHNgIC8gYGtpbGwgLXJg77ybVURQIOWNleaSreWPkeeOsOOAgeiusOS9j+WcsOWdgOW5tuiHquWKqOmHjei/nuOAgeiHquWKqOafpeaJviBoZGMgfAp8IGBpb3NtYW5hZ2VyLmgvLmNwcGAgfCDnm7TmjqXlrp7njrAgdXNibXV4ZCArIGxvY2tkb3duZCDljY/orq7vvIzmnprkuL4gaVBob25lL2lQYWQg5bm26K+75Y+W5ZCN56ew5LiO57O757uf54mI5pys77yIV2luZG93cyDotbAgVENQIDI3MDE177yMbWFjT1Mg6LWwIGAvdmFyL3J1bi91c2JtdXhkYO+8iSB8CnwgYHRleHRkZWNvZGUuaGAgfCDlrZDov5vnqIvovpPlh7rop6PnoIHvvJrkvJjlhYggVVRGLTjvvIzlpLHotKXlm57pgIDns7vnu5/mnKzlnLDnvJbnoIEgfAp8IGBtYWMvSW5mby5wbGlzdGAgfCBtYWNPUyDnmoQgYXBwIOS/oeaBr+S4juadg+mZkOivtOaYju+8iOWumuS9jSAvIOacrOWcsOe9kee7nO+8iSB8CnwgYG1hYy9idWlsZC5zaGAgfCBtYWNPUyDkuIDplK7mnoTlu7rohJrmnKwgfAp8IGBxcmNvZGVnZW4vYCB8IFtOYXl1a2kg55qEIFFSIENvZGUg55Sf5oiQ5bqTXShodHRwczovL3d3dy5uYXl1a2kuaW8vcGFnZS9xci1jb2RlLWdlbmVyYXRvci1saWJyYXJ5Ke+8iE1JVO+8iSB8CgojIyDlronlhajor7TmmI4KCi0gV2lGaSDlr4bnoIHlj6rlnKjov5vnqIvlhoXlrZjkuK3nlKjkuo7nlJ/miJDkuoznu7TnoIHvvIzkuI3mmL7npLrjgIHkuI3okL3nm5jjgIIKLSDphY3lr7nnoIHlkozphY3lr7nlr4bnoIHkuI3ov5vml6Xlv5fjgIIKLSDkuoznu7TnoIHph4znmoTphY3lr7nlr4bnoIHmmK/kuIDmrKHmgKfnmoTvvIzmr4/mrKHngrnjgIzph43mlrDnlJ/miJDphY3lr7nnoIHjgI3pg73kvJrmjaLmlrDnmoTjgIIKCiMjIOS4pOS4queOr+Wig+Wdke+8iOW3suWkhOeQhu+8iQoKLSBgbmV0c2hgIOWcqOaXoOaOp+WItuWPsOeahCBHVUkg6L+b56iL6YeM6L6T5Ye6IFVURi0477yM5Zyo5o6n5Yi25Y+w6YeM6L6T5Ye657O757ufIEFOU0kg57yW56CBIOKAlOKAlCBgd2lmaWluZm8uY3BwYCDlgZrkuoblhbzlrrnop6PnoIHjgIIKLSBgUVByb2Nlc3NgIOS8oCBgbmFtZT0ieHh4ImAg5pe25YaF5bWM5byV5Y+35Lya6KKr6L2s5LmJ5Z2P5a+86Ie0IG5ldHNoIOaKpemUmSDigJTigJQg5pS555So5LiN5bim5byV5Y+355qEIGBuYW1lPXh4eGDjgIIKCiMjIG1hY09TIOS4iueahOWdke+8iOW3suWkhOeQhu+8iQoKLSDmlrDniYggbWFjT1Mg6K+7IFNTSUQg6KaB5a6a5L2N5p2D6ZmQ77yMYG5ldHdvcmtzZXR1cCAtZ2V0YWlycG9ydG5ldHdvcmtgIOWPr+iDvei/lOWbnuepuiDigJTigJQg5YWI55So5LiN6ZyA6KaB5p2D6ZmQ55qEIGBpcGNvbmZpZyBnZXRzdW1tYXJ5IDxpZmFjZT5g77yM5YaN6YCA5ZueIGBuZXR3b3Jrc2V0dXBg77yM5pyA5ZCO55SoIGBzeXN0ZW1fcHJvZmlsZXJg77yI5oWi5L2G5LiA5a6a6IO96K+777yJ44CCCi0gbWFjT1Mg55qEIHVzYm11eGQg5Y+q55uR5ZCsIGAvdmFyL3J1bi91c2JtdXhkYCDov5nkuKogVW5peCDlpZfmjqXlrZfvvIzkuI3nm5HlkKwgVENQIDI3MDE1IOKAlOKAlCBgaW9zbWFuYWdlci5jcHBgIOeUqCBgUUxvY2FsU29ja2V0YCAvIGBRVGNwU29ja2V0YCDmjInlubPlj7DliIfmjaLjgIIKLSBXaS1GaSDlr4bnoIHlnKjpkqXljJnkuLLph4zvvIzor7vlj5bkvJrlvLnmjojmnYPmoYbkuJTlj6/og73lvojmhaIg4oCU4oCUIOaUvuWIsOWQjuWPsOe6v+eoi++8jOS4jemYu+WhnueVjOmdouOAggotIOm7mOiupOeahCBgQ29uc29sYXNgIOWtl+S9k+S4jeWtmOWcqCDigJTigJQg5pS555SoIGBRRm9udERhdGFiYXNlOjpzeXN0ZW1Gb250KEZpeGVkRm9udClg44CCCgojIyDoh7TosKIKCuaJq+eggemFjeWvueeahOaAnei3r+adpeiHqiBbYWxlaXhyb2RyaWFsYS9hZGItcXJdKGh0dHBzOi8vZ2l0aHViLmNvbS9hbGVpeHJvZHJpYWxhL2FkYi1xcinvvIhNSVTvvInvvIzlhbPplK7mtJ7lr5/mmK/vvJoqKueUqCBgYWRiIG1kbnMgc2VydmljZXNgIOWBmuWPkeeOsO+8jOS4jeeUqOiHquW3seWGmSBtRE5TIOebkeWQrOWZqCoq44CC
+# WiFi 无线调试助手
+
+Qt 6 Widgets 工具：**扫码配对**（和 Android Studio 一样的体验）+ **配对码配对**双通道，外加一个实时设备列表，支持多台设备。安卓走 `adb`，鸿蒙 NEXT 走 `hdc`，iPhone 走系统自带的 usbmuxd。
+
+支持 **Windows** 和 **macOS**（Intel / Apple Silicon 均可）。
+
+## 下载
+
+到 [Releases](https://github.com/lwen5172-design/wifi-/releases/latest) 下载对应平台的安装包：
+
+| 平台 | 文件 | 说明 |
+| --- | --- | --- |
+| Windows | `WifiDebugHelper-portable-win64.zip` | 便携版，解压后双击 `WifiDebugHelper.exe`，不需要安装 |
+| macOS（Apple Silicon） | `WifiDebugHelper-macos-arm64.dmg` | 打开后把 app 拖进「应用程序」；未签名，第一次需右键 →「打开」 |
+
+> Mac 版由 GitHub Actions 在 macOS 构建机上自动编译（见 `.github/workflows/build.yml`），没有 Mac 也能出包。
+
+## 两种配对方式
+
+### 1. 扫码配对（推荐）
+
+手机 `设置 → 开发者选项 → 无线调试 → 使用二维码配对设备`，扫程序里「扫码配对」页的二维码。**配对和连接一步完成，不用输配对码、不用看端口。**
+
+原理（不是自己实现加密协议，所有握手都交给 adb）：
+
+1. 程序生成随机服务名和密码，拼成 `WIFI:T:ADB;S:<名字>;P:<密码>;;` 显示成二维码
+2. 手机扫码后，在局域网广播 `_adb-tls-pairing._tcp` 服务，实例名就是那个 `<名字>`，密码作为配对凭据
+3. 程序每秒轮询 `adb mdns services`，发现该服务后执行 `adb pair <ip:port> <密码>`
+4. 配对成功后继续监听 `_adb-tls-connect._tcp`，自动 `adb connect` 完成连接
+
+SPAKE2 + TLS 的加密握手由 `adb pair` 内部完成，程序只负责生成码、发现服务、调用 adb。
+
+### 2. 配对码配对（备选）
+
+在无线调试页点「使用配对码配对设备」，把手机显示的 `IP:端口` 和 6 位配对码填进右侧面板，点「配对」。
+
+### 3. WiFi 入网（手机不在同一网络时）
+
+「WiFi 入网」页显示当前 WiFi 的二维码，手机扫码自动入网。这是扫码配对的前提。
+
+## 鸿蒙 NEXT（hdc）
+
+HarmonyOS NEXT 不跑 adb，也没有安卓那套二维码/配对码协议。程序用 `hdc` 作为第二个后端：
+
+1. 手机上：设置 → 系统 → 开发者选项 → **无线调试**，打开即可
+2. 把手机无线调试页显示的 `IP:端口` 填进右侧「鸿蒙无线调试（hdc）」面板，点「连接」（等价于 `hdc tconn IP:端口`）
+3. 连上后设备会出现在列表里，**型号列显示设备名**（如 `HUAWEI Mate 60 Pro`，通过 `hdc shell param get const.product.name` 查询），下次启动自动重连
+4. 如果程序自己能发现设备（UDP 单播探测有效时），会自动以「可连接（鸿蒙）」列出来，双击即可连接，不用手填
+
+**为什么不用 `hdc discover`，也不用安卓那套**：
+
+- 安卓的自动发现靠 mDNS（`adbd` 广播 `_adb-tls-connect._tcp`），`adb mdns services` 直接能列出来。**鸿蒙的 hdc 里没有任何 mDNS 实现**（官方源码全量搜 `mdns`/`bonjour`/`dns_sd`/`avahi` 零命中），所以安卓那套无法复用。
+- hdc 自己的发现机制是往 UDP 8710 发 `OHOS HDC` 广播，daemon 回 `OHOS HDC-<端口>`。程序自己实现了这套协议，并改成**逐地址单播**（部分 hdc 版本发不出正确广播，路由器也常过滤广播和组播）。
+- ⚠️ 部分固件上这条路也不通：实测 HarmonyOS 7（API 26）的 hdcd 虽然绑定了 UDP 8710，但**从不读取**（接收队列只涨不减，30 秒不消费），`hdc discover` 恒为 0，单播探测也无应答。这是设备侧的问题，程序无法绕过。
+
+**端口变了怎么办**：手机每次重新打开「无线调试」，调试端口都会换一个。程序会记住上次连上的 `IP:端口`，下次启动自动重连；如果端口已经变了，在设备列表里**右键那一行 → 「修改端口…」**，填上手机无线调试页显示的新端口，会立刻按新地址重连并更新记忆。右键菜单还有「重新连接」和「复制地址」。
+
+> 曾经试过自动扫描端口段来找回设备，但全段扫描要 60 秒，并发高了还会把手机的调试服务扫挂，而且端口本来就显示在手机屏幕上，直接改一下更快，所以没有保留这个功能。
+
+**记住地址**：每次连上都会把 `IP:端口` 记到设置里（同一 IP 只保留最新端口），下次启动自动重连；列表里显示「可连接（上次连接过）」，直接用 TCP 探测该地址是否还在线，不需要 UDP 回包。点「断开」会同时忘掉这个地址。若记住的地址全部连不上，日志会提示「鸿蒙每次重开无线调试端口都会变，请在手机上看新端口」。
+
+**hdc 从哪来**：DevEco Studio 自带的 toolchains。Windows 是 `sdk/default/openharmony/toolchains/hdc.exe`，macOS 是 `/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/toolchains/hdc`（或 `~/Library/Huawei/Sdk/...`）。程序会自动在 PATH、DevEco Studio 默认安装目录、SDK 目录、下载/桌面里找；找不到时点「选择 hdc」指定路径（会记住）。
+
+> `hdc tconn <key> -remove` 在 3.0.0b 上实测不生效，所以「断开」改用 `hdc kill -r` 重启 hdc 服务（会断开所有 hdc 连接），界面会先弹确认框。
+
+## 设备列表
+
+自动汇总四个来源：
+
+- `adb devices -l` —— 已连接的安卓设备
+- `adb mdns services` —— 局域网里发现但还没连接的安卓设备（状态显示「可连接」）
+- `hdc list targets -v` —— 已连接的鸿蒙设备（USB / TCP，COM 串口会被过滤）
+- 程序自带的 UDP 单播扫描 —— 局域网里的鸿蒙设备（状态显示「可连接（鸿蒙）」）
+- 记住的鸿蒙地址 —— TCP 探测还在线的（状态显示「可连接（上次连接过）」）
+- **usbmuxd** —— 通过 USB / Wi-Fi 连到本机的 iPhone、iPad
+
+同一台设备在 adb 里可能出现两条（TCP 入口 + mDNS 传输别名），程序会合并去重；鸿蒙端口换过之后，同一 IP 的旧 `Offline` 条目也不会再显示。列表每 4 秒自动刷新，双击行可直接连接，也可以选中后点「连接」/「断开」。`来源` 列区分 adb / hdc / ios。鸿蒙设备的行可以**右键**：修改端口、重新连接、复制地址。
+
+**iOS 设备**：不依赖 adb/hdc，直接说苹果驱动自带的 usbmuxd 协议（Windows 走 `127.0.0.1:27015`，macOS 走系统自带的 `/var/run/usbmuxd` Unix 套接字），再去 lockdownd 读 `DeviceName` / `ProductType` / `ProductVersion`。Windows 上装了「Apple 设备」驱动就有，macOS 系统自带，都不需要 libimobiledevice。手机第一次连时需要点「信任此电脑」，否则只能显示 UDID 和「未信任」状态。当前只做设备识别，不提供安装、截图、日志等调试功能。
+
+**设备名称列**：adb 设备显示「厂商 型号」（如 `OPPO PKB110`，由 `getprop ro.product.manufacturer` + `ro.product.model` 拼成）；鸿蒙设备显示 `const.product.name`（如 `HUAWEI Mate 60 Pro`）。名称是异步查询的，先显示已有信息，查到后自动刷新。
+
+**连接方式列**：`TCP`（无线）/ `USB`。
+
+## 限制
+
+- **「无线调试」开关必须手动打开**，包括扫码配对也要先进到那个页面才扫得到码。系统安全边界，任何第三方程序都绕不过。
+- 手机和电脑必须在同一个 WiFi 下，且路由器没有开启「AP 隔离」（客户端之间无法互访）。
+- 安卓 / HarmonyOS 4 及以下走 adb；**HarmonyOS NEXT 只支持 IP:端口手动连接**，没有扫码或配对码（鸿蒙不提供这套协议）。
+- adb 需要 platform-tools 31+（要支持 `adb mdns services`）。
+
+## 构建
+
+### Windows
+
+```bash
+qmake WifiDebugHelper.pro -spec win32-g++
+mingw32-make -j8
+```
+
+需要 Qt 6 + MinGW（本机为 Qt 6.12.0 / mingw1310_64；用到 Qt Network，`QT += ... network`），以及 `adb` 在 PATH 中（鸿蒙支持另需 `hdc.exe`）。
+
+### macOS
+
+```bash
+sh mac/build.sh          # 或：qmake WifiDebugHelper.pro -spec macx-clang CONFIG+=release && make -j8
+open WifiDebugHelper.app
+```
+
+需要 Xcode Command Line Tools（`xcode-select --install`）和 Qt 6（`brew install qt` 或用 Qt Online Installer）。产物是 `WifiDebugHelper.app`，可以直接双击运行。
+
+macOS 上有几处和 Windows 不同的地方：
+
+- **WiFi 信息**：SSID 从 `ipconfig getsummary` / `networksetup` 读取，密码从系统钥匙串读（`security find-generic-password`）。第一次读密码时 macOS 会弹一次授权框，点「允许」即可；也可以在「密码与钥匙串访问」里给 security 永久授权。拒绝授权的话二维码只能包含网络名，程序会在界面上提示。
+- **定位权限**：较新的 macOS 把「读取当前 WiFi 名称」算作定位权限，第一次会弹授权框（`mac/Info.plist` 里已写好说明文字）。
+- **局域网权限**：macOS 15 起访问局域网设备需要单独授权，程序首次扫描/连接时会弹「允许访问本地网络」，必须点允许，否则设备列表里什么都看不到。
+- **adb / hdc 路径**：macOS 上叫 `adb` / `hdc`（没有 `.exe`），默认位置是 `~/Library/Android/sdk/platform-tools`、Homebrew 的 `/opt/homebrew/bin`、DevEco Studio 的 app 包内。程序会自动找，也可以手动指定 hdc。
+- **iOS**：系统自带 usbmuxd，插上 iPhone 就能识别，不需要额外装驱动。
+
+> 没有做代码签名/公证，其他人第一次打开可能需要右键 →「打开」，或执行 `xattr -dr com.apple.quarantine WifiDebugHelper.app`。
+
+## 文件
+
+| 文件 | 作用 |
+| --- | --- |
+| `main.cpp` | 程序入口 |
+| `mainwindow.h/.cpp` | 界面：二维码、设备列表、配对面板、日志、扫码配对状态机 |
+| `wifiinfo.h/.cpp` | 读取当前 WiFi 的 SSID/密码/加密方式（Windows 走 netsh，macOS 走 ipconfig + 钥匙串） |
+| `adbmanager.h/.cpp` | 异步封装 `pair` / `connect` / `disconnect` / `mdns services` / `devices` |
+| `hdcmanager.h/.cpp` | 异步封装 `tconn` / `list targets` / `kill -r`；UDP 单播发现、记住地址并自动重连、自动查找 hdc |
+| `iosmanager.h/.cpp` | 直接实现 usbmuxd + lockdownd 协议，枚举 iPhone/iPad 并读取名称与系统版本（Windows 走 TCP 27015，macOS 走 `/var/run/usbmuxd`） |
+| `textdecode.h` | 子进程输出解码：优先 UTF-8，失败回退系统本地编码 |
+| `mac/Info.plist` | macOS 的 app 信息与权限说明（定位 / 本地网络） |
+| `mac/build.sh` | macOS 一键构建脚本 |
+| `qrcodegen/` | [Nayuki 的 QR Code 生成库](https://www.nayuki.io/page/qr-code-generator-library)（MIT） |
+
+## 安全说明
+
+- WiFi 密码只在进程内存中用于生成二维码，不显示、不落盘。
+- 配对码和配对密码不进日志。
+- 二维码里的配对密码是一次性的，每次点「重新生成配对码」都会换新的。
+
+## 两个环境坑（已处理）
+
+- `netsh` 在无控制台的 GUI 进程里输出 UTF-8，在控制台里输出系统 ANSI 编码 —— `wifiinfo.cpp` 做了兼容解码。
+- `QProcess` 传 `name="xxx"` 时内嵌引号会被转义坏导致 netsh 报错 —— 改用不带引号的 `name=xxx`。
+
+## macOS 上的坑（已处理）
+
+- 新版 macOS 读 SSID 要定位权限，`networksetup -getairportnetwork` 可能返回空 —— 先用不需要权限的 `ipconfig getsummary <iface>`，再退回 `networksetup`，最后用 `system_profiler`（慢但一定能读）。
+- macOS 的 usbmuxd 只监听 `/var/run/usbmuxd` 这个 Unix 套接字，不监听 TCP 27015 —— `iosmanager.cpp` 用 `QLocalSocket` / `QTcpSocket` 按平台切换。
+- Wi-Fi 密码在钥匙串里，读取会弹授权框且可能很慢 —— 放到后台线程，不阻塞界面。
+- 默认的 `Consolas` 字体不存在 —— 改用 `QFontDatabase::systemFont(FixedFont)`。
+
+## 致谢
+
+扫码配对的思路来自 [aleixrodriala/adb-qr](https://github.com/aleixrodriala/adb-qr)（MIT），关键洞察是：**用 `adb mdns services` 做发现，不用自己写 mDNS 监听器**。

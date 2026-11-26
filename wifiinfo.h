@@ -1,1 +1,27 @@
-I2lmbmRlZiBXSUZJSU5GT19ICiNkZWZpbmUgV0lGSUlORk9fSAoKI2luY2x1ZGUgPFFTdHJpbmc+CgovLyDor7vlj5blvZPliY3ov57mjqXnmoQgV2lGaSDkv6Hmga/vvIzlubbnlJ/miJDmiYvmnLrlj6/or4bliKvnmoQgV2lGaSDkuoznu7TnoIHlhoXlrrnjgIIKLy8gV2luZG93cyDotbAgbmV0c2jvvJttYWNPUyDotbAgaXBjb25maWcgLyBuZXR3b3Jrc2V0dXAgKyDpkqXljJnkuLLvvIhzZWN1cml0ee+8ieOAggovLyDms6jmhI/vvJrlr4bnoIHlj6rlnKjov5vnqIvlhoXlrZjkuK3mtYHovazvvIzkuI3lhpnml6Xlv5fjgIHkuI3mmL7npLrliLDnlYzpnaLjgIIKY2xhc3MgV2lmaUluZm8KewpwdWJsaWM6CiAgICAvLyDlvZPliY3ov57mjqXnmoQgU1NJRO+8jOivu+S4jeWIsOi/lOWbnuepugogICAgc3RhdGljIFFTdHJpbmcgY3VycmVudFNzaWQoKTsKCiAgICAvLyDor7vlj5blvZPliY0gV2lGaSDnmoQgU1NJRCAvIOWvhueggSAvIOWKoOWvhuaWueW8j+OAguaIkOWKn+i/lOWbniB0cnVl44CCCiAgICBzdGF0aWMgYm9vbCBjdXJyZW50UHJvZmlsZShRU3RyaW5nICpzc2lkLCBRU3RyaW5nICpwYXNzd29yZCwgUVN0cmluZyAqYXV0aFR5cGUpOwoKICAgIC8vIOeUn+aIkCBXSUZJOlQ6V1BBO1M6c3NpZDtQOnBhc3N3b3JkOzsg5b2i5byP55qE5YaF5a65CiAgICBzdGF0aWMgUVN0cmluZyBidWlsZFdpZmlRclRleHQoY29uc3QgUVN0cmluZyAmc3NpZCwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb25zdCBRU3RyaW5nICZwYXNzd29yZCwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb25zdCBRU3RyaW5nICZhdXRoVHlwZSk7CgogICAgLy8g5oyJIFdpRmkg5LqM57u056CB6KeE6IyD6L2s5LmJIFwgOyAsIDogIgogICAgc3RhdGljIFFTdHJpbmcgZXNjYXBlRmllbGQoY29uc3QgUVN0cmluZyAmdmFsdWUpOwp9OwoKI2VuZGlmIC8vIFdJRklJTkZPX0g=
+#ifndef WIFIINFO_H
+#define WIFIINFO_H
+
+#include <QString>
+
+// 读取当前连接的 WiFi 信息，并生成手机可识别的 WiFi 二维码内容。
+// Windows 走 netsh；macOS 走 ipconfig / networksetup + 钥匙串（security）。
+// 注意：密码只在进程内存中流转，不写日志、不显示到界面。
+class WifiInfo
+{
+public:
+    // 当前连接的 SSID，读不到返回空
+    static QString currentSsid();
+
+    // 读取当前 WiFi 的 SSID / 密码 / 加密方式。成功返回 true。
+    static bool currentProfile(QString *ssid, QString *password, QString *authType);
+
+    // 生成 WIFI:T:WPA;S:ssid;P:password;; 形式的内容
+    static QString buildWifiQrText(const QString &ssid,
+                                   const QString &password,
+                                   const QString &authType);
+
+    // 按 WiFi 二维码规范转义 \ ; , : "
+    static QString escapeField(const QString &value);
+};
+
+#endif // WIFIINFO_H

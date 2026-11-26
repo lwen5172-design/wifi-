@@ -1,1 +1,35 @@
-IyDmnoTlu7rkuqfniakKYnVpbGQvCmRlYnVnLwpyZWxlYXNlLwpkaXN0LwpXaWZpRGVidWdIZWxwZXItcG9ydGFibGUtKi56aXAKCiMgUXQgQ3JlYXRvciDmnKzlnLDphY3nva7vvIjlkKvmnKzmnLrot6/lvoTvvIkKKi5wcm8udXNlcgoqLnByby51c2VyLioKLnF0Y3JlYXRvci8KCiMg57yW6K+R5Lit6Ze05paH5Lu2CioubwoqLm9iagoqLmV4ZQoqLmRsbAoqLmEKbW9jXyouY3BwCnFyY18qLmNwcAp1aV8qLmgKCiMgcW1ha2Ug55Sf5oiQ5paH5Lu2Ck1ha2VmaWxlCk1ha2VmaWxlLioKLnFtYWtlLnN0YXNoCgojIOWFtuS7lgoqLmxvZwouRFNfU3RvcmUKVGh1bWJzLmRiCgojIG1hY09TCiouYXBwCiouZFNZTQ==
+# 构建产物
+build/
+debug/
+release/
+dist/
+WifiDebugHelper-portable-*.zip
+
+# Qt Creator 本地配置（含本机路径）
+*.pro.user
+*.pro.user.*
+.qtcreator/
+
+# 编译中间文件
+*.o
+*.obj
+*.exe
+*.dll
+*.a
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+
+# qmake 生成文件
+Makefile
+Makefile.*
+.qmake.stash
+
+# 其他
+*.log
+.DS_Store
+Thumbs.db
+
+# macOS
+*.app
+*.dSYM

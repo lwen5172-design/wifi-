@@ -1,1 +1,48 @@
-IyEvYmluL3NoCiMg5ZyoIG1hY09TIOS4iuaehOW7uiBXaWZpRGVidWdIZWxwZXIKIwojIOS+nei1lu+8mgojICAgLSBYY29kZSBDb21tYW5kIExpbmUgVG9vbHPvvIh4Y29kZS1zZWxlY3QgLS1pbnN0YWxs77yJCiMgICAtIFF0IDbvvIhicmV3IGluc3RhbGwgcXTvvIzmiJYgUXQgT25saW5lIEluc3RhbGxlcu+8iQojCiMg55So5rOV77yaCiMgICBzaCBtYWMvYnVpbGQuc2ggICAgICAgICAgICAjIFJlbGVhc2UKIyAgIHNoIG1hYy9idWlsZC5zaCBkZWJ1ZyAgICAgICMgRGVidWcKc2V0IC1lCgpjZCAiJChkaXJuYW1lICIkMCIpLy4uIgoKQ09ORklHPXJlbGVhc2UKWyAiJDEiID0gImRlYnVnIiBdICYmIENPTkZJRz1kZWJ1ZwoKIyBIb21lYnJldyDoo4XnmoQgUXQg6buY6K6k5LiN5ZyoIFBBVEgg6YeM77yM5YWI5om+5LiA5ZyIClFNQUtFPSR7UU1BS0U6LX0KaWYgWyAteiAiJFFNQUtFIiBdOyB0aGVuCiAgICBpZiBjb21tYW5kIC12IHFtYWtlID4vZGV2L251bGwgMj4mMTsgdGhlbgogICAgICAgIFFNQUtFPSQoY29tbWFuZCAtdiBxbWFrZSkKICAgIGVsc2UKICAgICAgICBmb3IgY2FuZGlkYXRlIGluIFwKICAgICAgICAgICAgL29wdC9ob21lYnJldy9vcHQvcXQvYmluL3FtYWtlIFwKICAgICAgICAgICAgL3Vzci9sb2NhbC9vcHQvcXQvYmluL3FtYWtlIFwKICAgICAgICAgICAgIiRIT01FIi9RdC8qL21hY29zL2Jpbi9xbWFrZTsgZG8KICAgICAgICAgICAgaWYgWyAteCAiJGNhbmRpZGF0ZSIgXTsgdGhlbgogICAgICAgICAgICAgICAgUU1BS0U9JGNhbmRpZGF0ZQogICAgICAgICAgICAgICAgYnJlYWsKICAgICAgICAgICAgZmkKICAgICAgICBkb25lCiAgICBmaQpmaQoKaWYgWyAteiAiJFFNQUtFIiBdOyB0aGVuCiAgICBlY2hvICLmib7kuI3liLAgcW1ha2XjgILor7flhYjlronoo4UgUXQgNu+8mmJyZXcgaW5zdGFsbCBxdO+8jOaIluiuvue9riBRTUFLRT0vcGF0aC90by9xbWFrZSIgPiYyCiAgICBleGl0IDEKZmkKCmVjaG8gIuS9v+eUqCBxbWFrZTogJFFNQUtFIgoiJFFNQUtFIiBXaWZpRGVidWdIZWxwZXIucHJvIC1zcGVjIG1hY3gtY2xhbmcgIkNPTkZJRys9JENPTkZJRyIKbWFrZSAtaiIkKHN5c2N0bCAtbiBody5sb2dpY2FsY3B1KSIKCmVjaG8KZWNobyAi5p6E5bu65a6M5oiQ77yaJChwd2QpL1dpZmlEZWJ1Z0hlbHBlci5hcHAiCmVjaG8gIui/kOihjO+8mm9wZW4gV2lmaURlYnVnSGVscGVyLmFwcCIKZWNobyAi5omT5YyF77yI5Y+v6YCJ77yM6ZyAIFF0IOiHquW4pueahCBtYWNkZXBsb3lxdO+8ie+8mm1hY2RlcGxveXF0IFdpZmlEZWJ1Z0hlbHBlci5hcHAgLWRtZyI=
+#!/bin/sh
+# 在 macOS 上构建 WifiDebugHelper
+#
+# 依赖：
+#   - Xcode Command Line Tools（xcode-select --install）
+#   - Qt 6（brew install qt，或 Qt Online Installer）
+#
+# 用法：
+#   sh mac/build.sh            # Release
+#   sh mac/build.sh debug      # Debug
+set -e
+
+cd "$(dirname "$0")/.."
+
+CONFIG=release
+[ "$1" = "debug" ] && CONFIG=debug
+
+# Homebrew 装的 Qt 默认不在 PATH 里，先找一圈
+QMAKE=${QMAKE:-}
+if [ -z "$QMAKE" ]; then
+    if command -v qmake >/dev/null 2>&1; then
+        QMAKE=$(command -v qmake)
+    else
+        for candidate in \
+            /opt/homebrew/opt/qt/bin/qmake \
+            /usr/local/opt/qt/bin/qmake \
+            "$HOME"/Qt/*/macos/bin/qmake; do
+            if [ -x "$candidate" ]; then
+                QMAKE=$candidate
+                break
+            fi
+        done
+    fi
+fi
+
+if [ -z "$QMAKE" ]; then
+    echo "找不到 qmake。请先安装 Qt 6：brew install qt，或设置 QMAKE=/path/to/qmake" >&2
+    exit 1
+fi
+
+echo "使用 qmake: $QMAKE"
+"$QMAKE" WifiDebugHelper.pro -spec macx-clang "CONFIG+=$CONFIG"
+make -j"$(sysctl -n hw.logicalcpu)"
+
+echo
+echo "构建完成：$(pwd)/WifiDebugHelper.app"
+echo "运行：open WifiDebugHelper.app"
+echo "打包（可选，需 Qt 自带的 macdeployqt）：macdeployqt WifiDebugHelper.app -dmg"

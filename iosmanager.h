@@ -1,1 +1,64 @@
-I2lmbmRlZiBJT1NNQU5BR0VSX0gKI2RlZmluZSBJT1NNQU5BR0VSX0gKCiNpbmNsdWRlIDxRTWV0YVR5cGU+CiNpbmNsdWRlIDxRT2JqZWN0PgojaW5jbHVkZSA8UVN0cmluZz4KI2luY2x1ZGUgPFFTdHJpbmdMaXN0PgoKLy8g5LiA5Y+w6YCa6L+HIFVTQi/nvZHnu5zov57mjqXliLDmnKzmnLrnmoQgaU9TIOiuvuWkhwpzdHJ1Y3QgSW9zRGV2aWNlCnsKICAgIFFTdHJpbmcgdWRpZDsgICAgICAgICAgICAgIC8vIOW6j+WIl+WPtyAvIFVuaXF1ZURldmljZUlECiAgICBRU3RyaW5nIGNvbm5lY3Rpb247ICAgICAgICAvLyBVU0IgLyBOZXR3b3JrCiAgICBRU3RyaW5nIG5hbWU7ICAgICAgICAgICAgICAvLyBpUGhvbmUgLyDoh6rlrprkuYnorr7lpIflkI0KICAgIFFTdHJpbmcgcHJvZHVjdFR5cGU7ICAgICAgIC8vIGlQaG9uZTEzLDIKICAgIFFTdHJpbmcgdmVyc2lvbjsgICAgICAgICAgIC8vIDE4LjEKICAgIGJvb2wgcGFpcmVkID0gZmFsc2U7ICAgICAgIC8vIOaYr+WQpuiDveS7jiBsb2NrZG93bmQg6K+75Yiw5L+h5oGv77yI5omL5py66ZyA5L+h5Lu75q2k55S16ISR77yJCn07CgpRX0RFQ0xBUkVfTUVUQVRZUEUoSW9zRGV2aWNlKQoKLy8gaU9TIOiuvuWkh+WPkeeOsOOAggovLwovLyBpT1Mg5rKh5pyJIGFkYi9oZGMg6YKj5qC355qE5ZG95Luk6KGM5bel5YW377yM5L2G57O757uf6YeM5pyJIHVzYm11eGQg5pyN5Yqh77yaCi8vIFdpbmRvd3Mg5ZCsIDEyNy4wLjAuMToyNzAxNe+8jG1hY09TIOi1sCAvdmFyL3J1bi91c2JtdXhkIOi/meS4qiBVbml4IOWfn+Wll+aOpeWtl+OAggovLyDov5nph4znm7TmjqXor7TlroPnmoTnroDljZXkuozov5vliLbljY/orq7vvJoKLy8gICAxLiBMaXN0RGV2aWNlc++8muWIl+WHuuW9k+WJjei/nuaOpeeahOiuvuWkh++8iFVESUTjgIHov57mjqXmlrnlvI/vvIkKLy8gICAyLiDlr7nmr4/lj7Dorr7lpIcgQ29ubmVjdCDliLAgbG9ja2Rvd25kKDYyMDc4Ke+8jOeUqCBwbGlzdCDpl64gRGV2aWNlTmFtZSAvIFByb2R1Y3RUeXBlIOetiQovLyDlhajpg6jlvILmraXvvIznu5PmnpzpgJrov4fkv6Hlj7fov5Tlm57vvJvmib7kuI3liLAgdXNibXV4ZO+8iOayoeijheiLueaenOmpseWKqO+8ieaXtumdmem7mOi/lOWbnuepuuWIl+ihqOOAggpjbGFzcyBJb3NNYW5hZ2VyIDogcHVibGljIFFPYmplY3QKewogICAgUV9PQkpFQ1QKCnB1YmxpYzoKICAgIGV4cGxpY2l0IElvc01hbmFnZXIoUU9iamVjdCAqcGFyZW50ID0gbnVsbHB0cik7CgogICAgLy8gdXNibXV4ZCDmmK/lkKblj6/nlKjvvIjoo4Xkuoboi7nmnpznp7vliqjorr7lpIfpqbHliqjlsLHmnInvvIkKICAgIGJvb2wgaXNBdmFpbGFibGUoKSBjb25zdDsKCiAgICAvLyDmnprkuL7orr7lpIflubbor7vlj5blkI3np7DvvIjmr4/lj7Dorr7lpIfkuIDmrKEgbG9ja2Rvd25kIOW+gOi/lO+8iQogICAgdm9pZCBsaXN0RGV2aWNlcygpOwoKc2lnbmFsczoKICAgIHZvaWQgbG9nTWVzc2FnZShjb25zdCBRU3RyaW5nICZ0ZXh0KTsKICAgIHZvaWQgZGV2aWNlc0xpc3RlZChjb25zdCBRTGlzdDxJb3NEZXZpY2U+ICZkZXZpY2VzKTsKICAgIHZvaWQgYXZhaWxhYmlsaXR5Q2hlY2tlZChib29sIGF2YWlsYWJsZSk7Cgpwcml2YXRlOgogICAgc3RydWN0IERldmljZUVudHJ5CiAgICB7CiAgICAgICAgcXVpbnQzMiBkZXZpY2VJZCA9IDA7CiAgICAgICAgUVN0cmluZyB1ZGlkOwogICAgICAgIFFTdHJpbmcgY29ubmVjdGlvbjsKICAgIH07CgogICAgLy8g6LWwIHVzYm11eGQg55qEIExpc3REZXZpY2Vz77yM5ou/5Yiw6K6+5aSH5YiX6KGoCiAgICBib29sIGZldGNoRGV2aWNlTGlzdChRTGlzdDxEZXZpY2VFbnRyeT4gKm91dCwgUVN0cmluZyAqZXJyb3IpIGNvbnN0OwogICAgLy8g6L+e5o6l5Yiw5p+Q5Y+w6K6+5aSH55qEIGxvY2tkb3duZCDlubblj5borr7lpIfkv6Hmga/vvJvlpLHotKXml7blj6rkv53nlZkgVURJRAogICAgSW9zRGV2aWNlIGVucmljaERldmljZShjb25zdCBEZXZpY2VFbnRyeSAmZW50cnkpIGNvbnN0OwoKICAgIGJvb2wgbV9hdmFpbGFibGUgPSB0cnVlOwp9OwoKI2VuZGlmIC8vIElPU01BTkFHRVJfSAo=
+#ifndef IOSMANAGER_H
+#define IOSMANAGER_H
+
+#include <QMetaType>
+#include <QObject>
+#include <QString>
+#include <QStringList>
+
+// 一台通过 USB/网络连接到本机的 iOS 设备
+struct IosDevice
+{
+    QString udid;              // 序列号 / UniqueDeviceID
+    QString connection;        // USB / Network
+    QString name;              // iPhone / 自定义设备名
+    QString productType;       // iPhone13,2
+    QString version;           // 18.1
+    bool paired = false;       // 是否能从 lockdownd 读到信息（手机需信任此电脑）
+};
+
+Q_DECLARE_METATYPE(IosDevice)
+
+// iOS 设备发现。
+//
+// iOS 没有 adb/hdc 那样的命令行工具，但系统里有 usbmuxd 服务：
+// Windows 听 127.0.0.1:27015，macOS 走 /var/run/usbmuxd 这个 Unix 域套接字。
+// 这里直接说它的简单二进制协议：
+//   1. ListDevices：列出当前连接的设备（UDID、连接方式）
+//   2. 对每台设备 Connect 到 lockdownd(62078)，用 plist 问 DeviceName / ProductType 等
+// 全部异步，结果通过信号返回；找不到 usbmuxd（没装苹果驱动）时静默返回空列表。
+class IosManager : public QObject
+{
+    Q_OBJECT
+
+public:
+    explicit IosManager(QObject *parent = nullptr);
+
+    // usbmuxd 是否可用（装了苹果移动设备驱动就有）
+    bool isAvailable() const;
+
+    // 枚举设备并读取名称（每台设备一次 lockdownd 往返）
+    void listDevices();
+
+signals:
+    void logMessage(const QString &text);
+    void devicesListed(const QList<IosDevice> &devices);
+    void availabilityChecked(bool available);
+
+private:
+    struct DeviceEntry
+    {
+        quint32 deviceId = 0;
+        QString udid;
+        QString connection;
+    };
+
+    // 走 usbmuxd 的 ListDevices，拿到设备列表
+    bool fetchDeviceList(QList<DeviceEntry> *out, QString *error) const;
+    // 连接到某台设备的 lockdownd 并取设备信息；失败时只保留 UDID
+    IosDevice enrichDevice(const DeviceEntry &entry) const;
+
+    bool m_available = true;
+};
+
+#endif // IOSMANAGER_H

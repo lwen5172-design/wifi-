@@ -1,1 +1,43 @@
-UVQgKz0gY29yZSBndWkgd2lkZ2V0cyBuZXR3b3JrDQoNCkNPTkZJRyArPSBjKysxNw0KDQpURU1QTEFURSA9IGFwcA0KVEFSR0VUID0gV2lmaURlYnVnSGVscGVyDQoNCiMg5rqQ56CB6YeM5pyJ5Lit5paH5a2X56ym5Liy77yM5pi+5byP5oyH5a6a5rqQ5paH5Lu2L+aJp+ihjOWtl+espumbhuS4uiBVVEYtOA0KIyDvvIjov5nkupvmmK8gR0NDIOeahOmAiemhue+8jG1hY09TIOm7mOiupOeahCBjbGFuZyDkuI3pnIDopoHkuZ/kuI3mjqXlj5fvvIzlj6rlnKggV2luZG93cyDkuIrliqDvvIkNCndpbjMyLWcrK3x3aW4zMi1jbGFuZy1nKys6IFFNQUtFX0NYWEZMQUdTICs9IC1maW5wdXQtY2hhcnNldD1VVEYtOCAtZmV4ZWMtY2hhcnNldD1VVEYtOA0KDQpJTkNMVURFUEFUSCArPSBxcmNvZGVnZW4NCg0KU09VUkNFUyArPSBcDQogICAgbWFpbi5jcHAgXA0KICAgIG1haW53aW5kb3cuY3BwIFwNCiAgICB3aWZpaW5mby5jcHAgXA0KICAgIGFkYm1hbmFnZXIuY3BwIFwNCiAgICBoZGNtYW5hZ2VyLmNwcCBcDQogICAgaW9zbWFuYWdlci5jcHAgXA0KICAgIHFyY29kZWdlbi9xcmNvZGVnZW4uY3BwDQoNCkhFQURFUlMgKz0gXA0KICAgIG1haW53aW5kb3cuaCBcDQogICAgd2lmaWluZm8uaCBcDQogICAgbWFjd2lmaXBhcnNlLmggXA0KICAgIGFkYm1hbmFnZXIuaCBcDQogICAgaGRjbWFuYWdlci5oIFwNCiAgICBpb3NtYW5hZ2VyLmggXA0KICAgIHRleHRkZWNvZGUuaCBcDQogICAgcXJjb2RlZ2VuL3FyY29kZWdlbi5ocHANCg0KIyBEZWZhdWx0IHJ1bGVzIGZvciBkZXBsb3ltZW50Lg0KcW54OiB0YXJnZXQucGF0aCA9IC90bXAvJCR7VEFSR0VUfS9iaW4NCmVsc2U6IHVuaXg6IWFuZHJvaWQ6IHRhcmdldC5wYXRoID0gL29wdC8kJHtUQVJHRVR9L2Jpbg0KIWlzRW1wdHkodGFyZ2V0LnBhdGgpOiBJTlNUQUxMUyArPSB0YXJnZXQNCg0KIyAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tIG1hY09TDQojIOeUn+aIkCAuYXBwIOWMhe+8m0luZm8ucGxpc3Qg6YeM6KGl5LiK6K+75Y+WIFdpRmkg5ZCN56ew44CB6K6/6Zeu5bGA5Z+f572R6ZyA6KaB55qE5p2D6ZmQ6K+05piODQptYWN4IHsNCiAgICBRTUFLRV9JTkZPX1BMSVNUID0gbWFjL0luZm8ucGxpc3QNCiAgICBESVNURklMRVMgKz0gbWFjL2J1aWxkLnNoDQp9
+QT += core gui widgets network
+
+CONFIG += c++17
+
+TEMPLATE = app
+TARGET = WifiDebugHelper
+
+# 源码里有中文字符串，显式指定源文件/执行字符集为 UTF-8
+# （这些是 GCC 的选项，macOS 默认的 clang 不需要也不接受，只在 Windows 上加）
+win32-g++|win32-clang-g++: QMAKE_CXXFLAGS += -finput-charset=UTF-8 -fexec-charset=UTF-8
+
+INCLUDEPATH += qrcodegen
+
+SOURCES += \
+    main.cpp \
+    mainwindow.cpp \
+    wifiinfo.cpp \
+    adbmanager.cpp \
+    hdcmanager.cpp \
+    iosmanager.cpp \
+    qrcodegen/qrcodegen.cpp
+
+HEADERS += \
+    mainwindow.h \
+    wifiinfo.h \
+    macwifiparse.h \
+    adbmanager.h \
+    hdcmanager.h \
+    iosmanager.h \
+    textdecode.h \
+    qrcodegen/qrcodegen.hpp
+
+# Default rules for deployment.
+qnx: target.path = /tmp/$${TARGET}/bin
+else: unix:!android: target.path = /opt/$${TARGET}/bin
+!isEmpty(target.path): INSTALLS += target
+
+# ---------------------------------------------------------------- macOS
+# 生成 .app 包；Info.plist 里补上读取 WiFi 名称、访问局域网需要的权限说明
+macx {
+    QMAKE_INFO_PLIST = mac/Info.plist
+    DISTFILES += mac/build.sh
+}

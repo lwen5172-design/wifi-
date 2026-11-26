@@ -1,1 +1,97 @@
-bmFtZTogYnVpbGQKCiMg55SoIEdpdEh1YiDnmoTlhY3otLnmnoTlu7rmnLrnvJbor5EgV2luZG93cyDkvr/mkLrniYjlkowgbWFjT1Mg54mI77yM5LiN6ZyA6KaB6Ieq5bex5pyJIE1hY+OAggojIC0g5omTIHRhZ++8iHYxLngueO+8ieaXtuiHquWKqOaehOW7uuW5tuaKiuWuieijheWMheaMguWIsOWvueW6lCBSZWxlYXNlCiMgLSDkuZ/lj6/ku6XlnKggQWN0aW9ucyDpobXpnaLmiYvliqjop6blj5HvvIzovpPlhaXopoHlj5HluIPnmoQgdGFn77yI5L6L5aaCIHYxLjEuMO+8iQpvbjoKICBwdXNoOgogICAgdGFnczogWyJ2KiJdCiAgd29ya2Zsb3dfZGlzcGF0Y2g6CiAgICBpbnB1dHM6CiAgICAgIHRhZzoKICAgICAgICBkZXNjcmlwdGlvbjogIuimgeWPkeW4g+WIsOeahCBSZWxlYXNlIHRhZ++8iOS+i+WmgiB2MS4xLjDvvInvvJvnlZnnqbrliJnlj6rmnoTlu7rkuI3kuIrkvKAiCiAgICAgICAgcmVxdWlyZWQ6IGZhbHNlCiAgICAgICAgdHlwZTogc3RyaW5nCgpwZXJtaXNzaW9uczoKICBjb250ZW50czogd3JpdGUKCmpvYnM6CiAgd2luZG93czoKICAgIHJ1bnMtb246IHdpbmRvd3MtbGF0ZXN0CiAgICBzdGVwczoKICAgICAgLSB1c2VzOiBhY3Rpb25zL2NoZWNrb3V0QHY0CgogICAgICAtIG5hbWU6IOWuieijhSBRdCA2CiAgICAgICAgdXNlczoganVycGxlbC9pbnN0YWxsLXF0LWFjdGlvbkB2NAogICAgICAgIHdpdGg6CiAgICAgICAgICB2ZXJzaW9uOiAiNi44LjMiCiAgICAgICAgICBhcmNoOiB3aW42NF9taW5ndwogICAgICAgICAgY2FjaGU6IHRydWUKCiAgICAgIC0gbmFtZTog57yW6K+RCiAgICAgICAgc2hlbGw6IGNtZAogICAgICAgIHJ1bjogfAogICAgICAgICAgcW1ha2UgV2lmaURlYnVnSGVscGVyLnBybyAtc3BlYyB3aW4zMi1nKysgQ09ORklHKz1yZWxlYXNlCiAgICAgICAgICBtaW5ndzMyLW1ha2UgLWolTlVNQkVSX09GX1BST0NFU1NPUlMlCgogICAgICAtIG5hbWU6IOaJk+WMheS+v+aQuueJiAogICAgICAgIHNoZWxsOiBwd3NoCiAgICAgICAgcnVuOiB8CiAgICAgICAgICBOZXctSXRlbSAtSXRlbVR5cGUgRGlyZWN0b3J5IC1Gb3JjZSBkaXN0IHwgT3V0LU51bGwKICAgICAgICAgIENvcHktSXRlbSByZWxlYXNlXFdpZmlEZWJ1Z0hlbHBlci5leGUgZGlzdFwKICAgICAgICAgIHdpbmRlcGxveXF0IC0tcmVsZWFzZSBkaXN0XFdpZmlEZWJ1Z0hlbHBlci5leGUKICAgICAgICAgIENvcHktSXRlbSBSRUFETUUubWQgZGlzdFwKICAgICAgICAgIENvbXByZXNzLUFyY2hpdmUgLVBhdGggZGlzdFwqIC1EZXN0aW5hdGlvblBhdGggV2lmaURlYnVnSGVscGVyLXBvcnRhYmxlLXdpbjY0LnppcCAtRm9yY2UKICAgICAgICAgIEdldC1JdGVtIFdpZmlEZWJ1Z0hlbHBlci1wb3J0YWJsZS13aW42NC56aXAgfCBGb3JtYXQtTGlzdCBOYW1lLExlbmd0aAoKICAgICAgLSB1c2VzOiBhY3Rpb25zL3VwbG9hZC1hcnRpZmFjdEB2NAogICAgICAgIHdpdGg6CiAgICAgICAgICBuYW1lOiBXaWZpRGVidWdIZWxwZXItd2luZG93cwogICAgICAgICAgcGF0aDogV2lmaURlYnVnSGVscGVyLXBvcnRhYmxlLXdpbjY0LnppcAoKICBtYWNvczoKICAgIHJ1bnMtb246IG1hY29zLWxhdGVzdAogICAgc3RlcHM6CiAgICAgIC0gdXNlczogYWN0aW9ucy9jaGVja291dEB2NAoKICAgICAgLSBuYW1lOiDlronoo4UgUXQgNgogICAgICAgIHVzZXM6IGp1cnBsZWwvaW5zdGFsbC1xdC1hY3Rpb25AdjQKICAgICAgICB3aXRoOgogICAgICAgICAgdmVyc2lvbjogIjYuOC4zIgogICAgICAgICAgY2FjaGU6IHRydWUKCiAgICAgIC0gbmFtZTog57yW6K+RCiAgICAgICAgcnVuOiB8CiAgICAgICAgICBxbWFrZSBXaWZpRGVidWdIZWxwZXIucHJvIC1zcGVjIG1hY3gtY2xhbmcgQ09ORklHKz1yZWxlYXNlCiAgICAgICAgICBtYWtlIC1qIiQoc3lzY3RsIC1uIGh3LmxvZ2ljYWxjcHUpIgoKICAgICAgLSBuYW1lOiDmiZPljIUgLmFwcCAvIC5kbWfvvIjluKbkuIogUXQg5L6d6LWW77yJCiAgICAgICAgcnVuOiB8CiAgICAgICAgICBtYWNkZXBsb3lxdCBXaWZpRGVidWdIZWxwZXIuYXBwIC1kbWcgLWFsd2F5cy1vdmVyd3JpdGUKICAgICAgICAgIG12IFdpZmlEZWJ1Z0hlbHBlci5kbWcgV2lmaURlYnVnSGVscGVyLW1hY29zLWFybTY0LmRtZwogICAgICAgICAgbHMgLWxoIFdpZmlEZWJ1Z0hlbHBlci1tYWNvcy1hcm02NC5kbWcKCiAgICAgIC0gdXNlczogYWN0aW9ucy91cGxvYWQtYXJ0aWZhY3RAdjQKICAgICAgICB3aXRoOgogICAgICAgICAgbmFtZTogV2lmaURlYnVnSGVscGVyLW1hY29zCiAgICAgICAgICBwYXRoOiBXaWZpRGVidWdIZWxwZXItbWFjb3MtYXJtNjQuZG1nCgogIHJlbGVhc2U6CiAgICBuZWVkczogW3dpbmRvd3MsIG1hY29zXQogICAgcnVucy1vbjogdWJ1bnR1LWxhdGVzdAogICAgaWY6IHN0YXJ0c1dpdGgoZ2l0aHViLnJlZiwgJ3JlZnMvdGFncy8nKSB8fCBpbnB1dHMudGFnICE9ICcnCiAgICBzdGVwczoKICAgICAgLSB1c2VzOiBhY3Rpb25zL2Rvd25sb2FkLWFydGlmYWN0QHY0CiAgICAgICAgd2l0aDoKICAgICAgICAgIHBhdGg6IGFydGlmYWN0cwogICAgICAgICAgbWVyZ2UtbXVsdGlwbGU6IHRydWUKCiAgICAgIC0gdXNlczogc29mdHByb3BzL2FjdGlvbi1naC1yZWxlYXNlQHYyCiAgICAgICAgd2l0aDoKICAgICAgICAgIHRhZ19uYW1lOiAke3sgaW5wdXRzLnRhZyB8fCBnaXRodWIucmVmX25hbWUgfX0KICAgICAgICAgIGdlbmVyYXRlX3JlbGVhc2Vfbm90ZXM6IHRydWUKICAgICAgICAgIGZpbGVzOiB8CiAgICAgICAgICAgIGFydGlmYWN0cy9XaWZpRGVidWdIZWxwZXItcG9ydGFibGUtd2luNjQuemlwCiAgICAgICAgICAgIGFydGlmYWN0cy9XaWZpRGVidWdIZWxwZXItbWFjb3MtYXJtNjQuZG1nCiAgICAgICAgICBmYWlsX29uX3VubWF0Y2hlZF9maWxlczogdHJ1ZQ==
+name: build
+
+# 用 GitHub 的免费构建机编译 Windows 便携版和 macOS 版，不需要自己有 Mac。
+# - 打 tag（v1.x.x）时自动构建并把安装包挂到对应 Release
+# - 也可以在 Actions 页面手动触发，输入要发布的 tag（例如 v1.1.0）
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "要发布到的 Release tag（例如 v1.1.0）；留空则只构建不上传"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 安装 Qt 6
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: "6.8.3"
+          arch: win64_mingw
+          cache: true
+
+      - name: 编译
+        shell: cmd
+        run: |
+          qmake WifiDebugHelper.pro -spec win32-g++ CONFIG+=release
+          mingw32-make -j%NUMBER_OF_PROCESSORS%
+
+      - name: 打包便携版
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force dist | Out-Null
+          Copy-Item release\WifiDebugHelper.exe dist\
+          windeployqt --release dist\WifiDebugHelper.exe
+          Copy-Item README.md dist\
+          Compress-Archive -Path dist\* -DestinationPath WifiDebugHelper-portable-win64.zip -Force
+          Get-Item WifiDebugHelper-portable-win64.zip | Format-List Name,Length
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: WifiDebugHelper-windows
+          path: WifiDebugHelper-portable-win64.zip
+
+  macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 安装 Qt 6
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: "6.8.3"
+          cache: true
+
+      - name: 编译
+        run: |
+          qmake WifiDebugHelper.pro -spec macx-clang CONFIG+=release
+          make -j"$(sysctl -n hw.logicalcpu)"
+
+      - name: 打包 .app / .dmg（带上 Qt 依赖）
+        run: |
+          macdeployqt WifiDebugHelper.app -dmg -always-overwrite
+          mv WifiDebugHelper.dmg WifiDebugHelper-macos-arm64.dmg
+          ls -lh WifiDebugHelper-macos-arm64.dmg
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: WifiDebugHelper-macos
+          path: WifiDebugHelper-macos-arm64.dmg
+
+  release:
+    needs: [windows, macos]
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/') || inputs.tag != ''
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ inputs.tag || github.ref_name }}
+          generate_release_notes: true
+          files: |
+            artifacts/WifiDebugHelper-portable-win64.zip
+            artifacts/WifiDebugHelper-macos-arm64.dmg
+          fail_on_unmatched_files: true
